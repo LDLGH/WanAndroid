@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">WanAndroid</string>
+    <string name="action_settings">Settings</string>
+    <string name="http_error">网络异常</string>
+    <string name="unKnown_error">未知错误</string>
+
+    //主页
+    <string name="failed_to_obtain_article_list">获取文章列表数据失败</string>
+</resources>
