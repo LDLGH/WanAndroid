@@ -12,14 +12,16 @@ import androidx.fragment.app.Fragment
  */
 abstract class AbstractSimpleFragment : Fragment() {
 
+    protected lateinit var mView: View
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(getLayoutId(), container, false)
+        mView = inflater.inflate(getLayoutId(), container, false)
         initView()
-        return view
+        return mView
     }
 
     /**

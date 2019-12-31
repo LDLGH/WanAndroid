@@ -32,6 +32,7 @@ abstract class BaseFragment<T : AbstractPresenter> : AbstractSimpleFragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mPresenter?.attachView(this)
+        initEventAndData()
     }
 
     override fun onDestroyView() {

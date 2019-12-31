@@ -17,6 +17,8 @@ class Constants {
         val PATH_CACHE = "$PATH_DATA/NetCache"
 
         const val DB_NAME = "wan_android.db"
+
+        const val BUGLY_ID = "68b4f35622"
     }
 
 

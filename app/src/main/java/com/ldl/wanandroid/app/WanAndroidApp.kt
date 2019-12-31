@@ -3,6 +3,7 @@ package com.ldl.wanandroid.app
 import android.app.Application
 import android.content.Context
 import androidx.core.content.ContextCompat
+import com.billy.android.loading.Gloading
 import com.blankj.utilcode.util.Utils
 import com.bumptech.glide.Glide
 import com.facebook.stetho.Stetho
@@ -14,10 +15,12 @@ import com.ldl.wanandroid.di.component.AppComponent
 import com.ldl.wanandroid.di.component.DaggerAppComponent
 import com.ldl.wanandroid.di.module.AppModule
 import com.ldl.wanandroid.di.module.HttpModule
+import com.ldl.wanandroid.ui.main.adapter.GlobalAdapter
 import com.scwang.smartrefresh.header.DeliveryHeader
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
+import com.tencent.bugly.crashreport.CrashReport
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -61,6 +64,8 @@ class WanAndroidApp : Application(), HasAndroidInjector {
     override fun onCreate() {
         super.onCreate()
 
+        CrashReport.initCrashReport(this, Constants.BUGLY_ID, BuildConfig.DEBUG)
+
         Utils.init(this)
 
         if (BuildConfig.DEBUG) {
@@ -68,6 +73,8 @@ class WanAndroidApp : Application(), HasAndroidInjector {
         }
         initAppComponent()
         initGreenDao()
+
+        Gloading.initDefault(GlobalAdapter())
     }
 
     override fun onTrimMemory(level: Int) {

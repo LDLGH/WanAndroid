@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_main"
+        android:icon="@drawable/ic_filter_1_black_24dp"
+        android:title="@string/menu_main" />
+    <item
+        android:id="@+id/nav_knowledge"
+        android:icon="@drawable/ic_filter_2_black_24dp"
+        android:title="@string/menu_knowledge" />
+    <item
+        android:id="@+id/nav_wx"
+        android:icon="@drawable/ic_filter_3_black_24dp"
+        android:title="@string/menu_wx" />
+    <item
+        android:id="@+id/nav_navigation"
+        android:icon="@drawable/ic_filter_4_black_24dp"
+        android:title="@string/menu_navigation" />
+    <item
+        android:id="@+id/nav_project"
+        android:icon="@drawable/ic_filter_5_black_24dp"
+        android:title="@string/menu_project" />
+</menu>
