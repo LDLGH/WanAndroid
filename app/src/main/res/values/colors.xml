@@ -7,4 +7,6 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorGray">#999999</color>
+    <color name="colorTextBlack">#333333</color>
+    <color name="colorTextGray">#999999</color>
 </resources>

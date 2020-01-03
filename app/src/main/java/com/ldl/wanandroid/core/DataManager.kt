@@ -1,7 +1,9 @@
 package com.ldl.wanandroid.core
 
 import com.ldl.wanandroid.core.bean.BaseResponse
-import com.ldl.wanandroid.core.bean.collect.FeedArticleListData
+import com.ldl.wanandroid.core.bean.main.banner.BannerData
+import com.ldl.wanandroid.core.bean.main.collect.FeedArticleListData
+import com.ldl.wanandroid.core.bean.main.search.TopSearchData
 import com.ldl.wanandroid.core.db.DbHelper
 import com.ldl.wanandroid.core.http.HttpHelper
 import com.ldl.wanandroid.core.prefs.PreferenceHelper
@@ -19,4 +21,10 @@ class DataManager constructor(
 
     override fun getFeedArticleList(pageNum: Int): Observable<BaseResponse<FeedArticleListData>> =
         httpHelper.getFeedArticleList(pageNum)
+
+    override fun getBannerData(): Observable<BaseResponse<List<BannerData>>> =
+        httpHelper.getBannerData()
+
+    override fun getTopSearchData(): Observable<BaseResponse<List<TopSearchData>>> =
+        httpHelper.getTopSearchData()
 }

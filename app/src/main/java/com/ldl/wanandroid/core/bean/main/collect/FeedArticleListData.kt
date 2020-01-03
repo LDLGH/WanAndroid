@@ -1,4 +1,4 @@
-package com.ldl.wanandroid.core.bean.collect
+package com.ldl.wanandroid.core.bean.main.collect
 
 /**
  * 作者：LDL 创建时间：2019/12/27
@@ -6,7 +6,7 @@ package com.ldl.wanandroid.core.bean.collect
  */
 data class FeedArticleListData(
     var curPage: Int,
-    var datas: List<FeedArticleData>,
+    var datas: ArrayList<FeedArticleData>,
     var offset: Int,
     var over: Boolean,
     var pageCount: Int,

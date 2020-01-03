@@ -5,6 +5,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.FragmentUtils
+import com.blankj.utilcode.util.LogUtils
 import com.ldl.wanandroid.R
 import com.ldl.wanandroid.R.layout.activity_main
 import com.ldl.wanandroid.base.activity.BaseActivity
@@ -58,6 +59,7 @@ class MainActivity : BaseActivity<MainPresenter>() {
                 }
                 R.id.nav_knowledge -> {
                     FragmentUtils.showHide(1, mFragments)
+                    LogUtils.d("2222")
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.nav_wx -> {

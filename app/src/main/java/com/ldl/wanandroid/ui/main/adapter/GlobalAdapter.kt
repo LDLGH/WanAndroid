@@ -5,50 +5,42 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
-import com.billy.android.loading.Gloading
-import com.billy.android.loading.Gloading.STATUS_LOADING
-import com.billy.android.loading.Gloading.STATUS_LOAD_FAILED
-import com.ldl.wanandroid.R.layout.layout_global_error_status
+import com.billy.android.loading.Gloading.*
+import com.ldl.wanandroid.R
 import com.ldl.wanandroid.R.layout.layout_global_loading_status
-import kotlinx.android.synthetic.main.layout_global_error_status.view.*
 import kotlinx.android.synthetic.main.layout_global_loading_status.view.*
+
 
 /**
  * 作者：LDL 创建时间：2019/12/31
  * 类说明：
  */
-class GlobalAdapter : Gloading.Adapter {
+class GlobalAdapter : Adapter {
 
-    override fun getView(holder: Gloading.Holder?, convertView: View?, status: Int): View {
-        if (status == STATUS_LOADING) {
-            val view: GlobalLoadingStatusView
-            if (convertView == null || convertView !is GlobalLoadingStatusView) {
-                view = GlobalLoadingStatusView(holder!!.context)
-                convertView?.tag = view
-            } else {
-                view = convertView.tag as GlobalLoadingStatusView
-            }
-            view.start()
-            return view
-        } else if (status == STATUS_LOAD_FAILED) {
-            val view: GlobalErrorStatusView
-            if (convertView == null || convertView !is GlobalErrorStatusView) {
-                view = GlobalErrorStatusView(holder!!.context, holder.retryTask)
-                convertView?.tag = view
-            } else {
-                view = convertView.tag as GlobalErrorStatusView
-            }
-            view.start()
-            return view
+    override fun getView(holder: Holder?, convertView: View?, status: Int): View {
+
+        var view: GlobalLoadingStatusView? = null
+        if (convertView != null || convertView is GlobalLoadingStatusView) {
+            view = convertView as GlobalLoadingStatusView
         }
-        return convertView!!.tag as View
+        if (view == null) {
+            view = GlobalLoadingStatusView(holder!!.context, holder.retryTask)
+        }
+        view.setStatus(status)
+        view.start()
+        return view
     }
 }
 
-class GlobalLoadingStatusView constructor(context: Context) : RelativeLayout(context) {
+@SuppressLint("ViewConstructor")
+class GlobalLoadingStatusView constructor(context: Context, retryTask: Runnable) :
+    RelativeLayout(context) {
+
+    private var mRetryTask: Runnable? = null
 
     init {
         LayoutInflater.from(context).inflate(layout_global_loading_status, this)
+        mRetryTask = retryTask
     }
 
     fun start() {
@@ -59,26 +51,26 @@ class GlobalLoadingStatusView constructor(context: Context) : RelativeLayout(con
         super.onDetachedFromWindow()
         animation_loading.cancelAnimation()
     }
-}
 
-@SuppressLint("ViewConstructor")
-class GlobalErrorStatusView constructor(context: Context, retryTask: Runnable) :
-    RelativeLayout(context) {
-
-    init {
-        LayoutInflater.from(context).inflate(layout_global_error_status, this)
-        animation_error.setOnClickListener {
-            retryTask.run()
+    fun setStatus(status: Int) {
+        var show = true
+        when (status) {
+            STATUS_LOAD_SUCCESS -> {
+                show = false
+            }
+            STATUS_LOADING -> {
+            }
+            STATUS_LOAD_FAILED -> {
+                animation_loading.setAnimation(R.raw.network_error)
+                animation_loading.setOnClickListener {
+                    mRetryTask?.run()
+                }
+            }
+            else -> {
+            }
         }
+        visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    fun start() {
-        animation_error.playAnimation()
-    }
-
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        animation_error.cancelAnimation()
-    }
 }
 

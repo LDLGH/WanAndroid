@@ -15,7 +15,7 @@ import retrofit2.HttpException
  */
 abstract class BaseObserver<T> constructor(
     var view: AbstractView,
-    var errorMsg: String,
+    var errorMsg: String = "",
     var isShowError: Boolean = true
 ) : ResourceObserver<T>() {
 

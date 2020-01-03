@@ -53,6 +53,9 @@ dependencies {
     //ui
     implementation rootProject.ext.dependencies["SmartRefreshLayout"]
     implementation rootProject.ext.dependencies["SmartRefreshHeader"]
+    implementation rootProject.ext.dependencies["gloading"]
+    implementation rootProject.ext.dependencies["flowlayout"]
+    implementation rootProject.ext.dependencies["Banner"]
 
     //net
     implementation rootProject.ext.dependencies["okhttp"]
@@ -62,6 +65,7 @@ dependencies {
     implementation rootProject.ext.dependencies["adapter-rxjava2"]
     implementation rootProject.ext.dependencies["glide"]
     kapt rootProject.ext.dependencies["glide_compiler"]
+    implementation rootProject.ext.dependencies["glide-transformations"]
     implementation rootProject.ext.dependencies["retrofit-url-manager"]
 
     //dao
@@ -99,7 +103,6 @@ dependencies {
     implementation rootProject.ext.dependencies["PersistentCookieJar"]
     implementation rootProject.ext.dependencies["lottie"]
     implementation rootProject.ext.dependencies["bugly"]
-    implementation rootProject.ext.dependencies["gloading"]
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

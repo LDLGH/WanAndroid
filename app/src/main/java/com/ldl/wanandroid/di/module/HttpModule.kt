@@ -52,7 +52,7 @@ class HttpModule {
     fun provideClient(builder: OkHttpClient.Builder): OkHttpClient {
         if (BuildConfig.DEBUG) {
             val httpLoggingInterceptor = HttpLoggingInterceptor()
-            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
+            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             builder.addInterceptor(httpLoggingInterceptor)
             builder.addInterceptor(StethoInterceptor())
         }

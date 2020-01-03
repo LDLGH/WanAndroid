@@ -1,5 +1,6 @@
 package com.ldl.wanandroid.base.fragment
 
+import android.view.View
 import com.billy.android.loading.Gloading
 import com.ldl.wanandroid.base.presenter.BasePresenter
 
@@ -11,26 +12,23 @@ abstract class BaseRootFragment<T : BasePresenter<*>> : BaseFragment<T>() {
 
     private var mHolder: Gloading.Holder? = null
 
-    private fun initLoadingStatusViewIfNeed() {
+    protected fun initLoadingStatusViewIfNeed(view :View) {
         if (mHolder == null) {
-            mHolder = Gloading.getDefault().wrap(mView).withRetry {
+            mHolder = Gloading.getDefault().wrap(view).withRetry {
                 reload()
             }
         }
     }
 
     override fun showNormal() {
-        initLoadingStatusViewIfNeed()
         mHolder?.showLoadSuccess()
     }
 
     override fun showError() {
-        initLoadingStatusViewIfNeed()
         mHolder?.showLoadFailed()
     }
 
     override fun showLoading() {
-        initLoadingStatusViewIfNeed()
         mHolder?.showLoading()
     }
 }

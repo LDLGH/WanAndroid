@@ -20,5 +20,10 @@
     <string name="menu_navigation">导航</string>
     <string name="menu_project">项目</string>
 
+    //net
     <string name="click_to_retry">点击重试</string>
+
+    //homepage
+    <string name="search">搜索</string>
+    <string name="discover_more">发现更多干货</string>
 </resources>
