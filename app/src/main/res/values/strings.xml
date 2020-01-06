@@ -25,5 +25,9 @@
 
     //homepage
     <string name="search">搜索</string>
+    <string name="see_more">查看更多</string>
     <string name="discover_more">发现更多干货</string>
+    <string name="recommended_article">推荐文章</string>
+    <string name="carefully_selected_for_you">为你精挑细选</string>
+
 </resources>

@@ -6,7 +6,7 @@ package com.ldl.wanandroid.core.bean.main.collect
  */
 data class FeedArticleData(
     var apkLink: String,
-    var author: String,
+    var author: String = "Android",
     var chapterId: Int,
     var chapterName: String,
     var collect: Boolean,
@@ -21,7 +21,7 @@ data class FeedArticleData(
     var superChapterId: Int,
     var superChapterName: String,
     var publishTime: Long,
-    var title: String,
+    var title: String = "",
     var visible: Int,
     var zan: Int
 )

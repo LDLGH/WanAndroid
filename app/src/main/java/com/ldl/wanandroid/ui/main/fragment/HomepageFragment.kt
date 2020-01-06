@@ -3,25 +3,26 @@ package com.ldl.wanandroid.ui.main.fragment
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ConvertUtils
+import com.blankj.utilcode.util.GsonUtils
 import com.ldl.wanandroid.R
 import com.ldl.wanandroid.R.layout.fragment_homepage
-import com.ldl.wanandroid.R.layout.head_banner
 import com.ldl.wanandroid.base.fragment.BaseRootFragment
 import com.ldl.wanandroid.contract.main.HomepageContract
+import com.ldl.wanandroid.core.bean.main.MainData
 import com.ldl.wanandroid.core.bean.main.banner.BannerData
-import com.ldl.wanandroid.core.bean.main.collect.FeedArticleData
 import com.ldl.wanandroid.core.bean.main.collect.FeedArticleListData
+import com.ldl.wanandroid.core.bean.main.menu.MenuData
 import com.ldl.wanandroid.core.bean.main.search.TopSearchData
 import com.ldl.wanandroid.presenter.main.HomepagePresenter
-import com.ldl.wanandroid.ui.main.adapter.ArticleListAdapter
 import com.ldl.wanandroid.ui.main.adapter.BannerViewHolder
-import com.ldl.wanandroid.widget.ScrollTextSwitcher
+import com.ldl.wanandroid.ui.main.adapter.MainAdapter
+import com.ldl.wanandroid.ui.main.adapter.MenuAdapter
 import com.zhpan.bannerview.BannerViewPager
-import com.zhpan.bannerview.constants.IndicatorStyle
-import com.zhpan.bannerview.constants.PageStyle.MULTI_PAGE_OVERLAP
+import com.zhpan.bannerview.constants.PageStyle.MULTI_PAGE_SCALE
 import kotlinx.android.synthetic.main.fragment_homepage.*
 
 /**
@@ -31,15 +32,23 @@ import kotlinx.android.synthetic.main.fragment_homepage.*
 @SuppressLint("InflateParams")
 class HomepageFragment : BaseRootFragment<HomepagePresenter>(), HomepageContract.View {
 
-    override fun getLayoutId(): Int = fragment_homepage
+    private var menuList = ArrayList<MenuData>()
+
+    init {
+        menuList.add(MenuData("文章", ""))
+        menuList.add(MenuData("知识体系", ""))
+        menuList.add(MenuData("公众号", ""))
+        menuList.add(MenuData("导航", ""))
+        menuList.add(MenuData("项目", ""))
+    }
 
     private lateinit var mHeadView: View
     private var mBanner: BannerViewPager<BannerData, BannerViewHolder>? = null
-    private var mTextSwitcher: ScrollTextSwitcher? = null
-    private lateinit var mAdapter: ArticleListAdapter
+    private lateinit var mAdapter: MainAdapter
 
-    private var mFeedArticleDatas = ArrayList<FeedArticleData>()
+    private var mainDataList = ArrayList<MainData>()
 
+    override fun getLayoutId(): Int = fragment_homepage
 
     override fun initView() {
         initLoadingStatusViewIfNeed(swipeRefreshLayout)
@@ -53,37 +62,30 @@ class HomepageFragment : BaseRootFragment<HomepagePresenter>(), HomepageContract
     }
 
     private fun initHead() {
-        mHeadView = LayoutInflater.from(mActivity).inflate(head_banner, null)
+        mHeadView = LayoutInflater.from(mActivity).inflate(R.layout.head_banner, null)
         mBanner = mHeadView.findViewById(R.id.banner_view)
-        mTextSwitcher = mHeadView.findViewById(R.id.textSwitcher)
-        val tvOnSearch = mHeadView.findViewById<TextView>(R.id.tv_onSearch)
-        mTextSwitcher?.setOnItemClickListener(object : ScrollTextSwitcher.OnItemClickListener {
-            override fun onItemClick(position: Int) {
-                showSnackBar(mTextSwitcher?.mTexts?.get(position))
-            }
-        })
-        tvOnSearch.setOnClickListener {
+        val rvMenu = mHeadView.findViewById<RecyclerView>(R.id.rv_menu)
+        rvMenu.setHasFixedSize(true)
+        rvMenu.layoutManager = GridLayoutManager(mActivity, 5)
+        val menuAdapter = MenuAdapter(menuList)
+        rvMenu.adapter = menuAdapter
+        menuAdapter.setOnItemClickListener { adapter, view, position ->
 
         }
     }
 
     private fun initRecyclerView() {
-        mAdapter = ArticleListAdapter(mFeedArticleDatas)
+        mAdapter = MainAdapter(mainDataList)
         recyclerView.layoutManager = LinearLayoutManager(mActivity)
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = mAdapter
         mAdapter.addHeaderView(mHeadView)
-        mAdapter.setOnItemClickListener { adapter, view, position ->
-
-        }
+        mAdapter.setOnItemChildClickListener { adapter, view, position -> }
     }
 
     private fun initBanner(bannerDataList: List<BannerData>) {
         mBanner?.also {
-            it.setIndicatorStyle(IndicatorStyle.DASH)
-                .setPageStyle(MULTI_PAGE_OVERLAP)
-                .setIndicatorHeight(ConvertUtils.dp2px(3f))
-                .setIndicatorWidth(ConvertUtils.dp2px(3f), ConvertUtils.dp2px(10f))
+            it.setPageStyle(MULTI_PAGE_SCALE)
                 .setPageMargin(ConvertUtils.dp2px(20f))
                 .setHolderCreator { BannerViewHolder() }
                 .setOnPageClickListener { it1 ->
@@ -95,25 +97,22 @@ class HomepageFragment : BaseRootFragment<HomepagePresenter>(), HomepageContract
 
     private fun initRefresh() {
         swipeRefreshLayout.setOnRefreshListener {
-            mAdapter.loadMoreModule?.isEnableLoadMore = false
             mPresenter?.refresh()
-        }
-        mAdapter.loadMoreModule?.setOnLoadMoreListener {
-            mPresenter?.loadMore()
         }
     }
 
     override fun showArticleList(feedArticleListData: FeedArticleListData, isRefresh: Boolean) {
         if (isRefresh) {
             swipeRefreshLayout.isRefreshing = false
-            mFeedArticleDatas.clear()
-            mFeedArticleDatas.addAll(feedArticleListData.datas)
-            mAdapter.setNewData(feedArticleListData.datas)
-            mAdapter.loadMoreModule?.isEnableLoadMore = true
-        } else {
-            mFeedArticleDatas.addAll(feedArticleListData.datas)
-            mAdapter.addData(feedArticleListData.datas)
-            mAdapter.loadMoreModule?.loadMoreComplete()
+            val data = MainData(
+                getString(R.string.recommended_article),
+                getString(R.string.carefully_selected_for_you),
+                GsonUtils.toJson(feedArticleListData.datas)
+            )
+            mainDataList.add(data)
+            val list = ArrayList<MainData>()
+            list.add(data)
+            mAdapter.setNewData(list)
         }
     }
 
@@ -126,7 +125,6 @@ class HomepageFragment : BaseRootFragment<HomepagePresenter>(), HomepageContract
         topSearchDataList.forEach {
             list.add(it.name)
         }
-        mTextSwitcher?.mTexts = list
     }
 
     override fun onResume() {

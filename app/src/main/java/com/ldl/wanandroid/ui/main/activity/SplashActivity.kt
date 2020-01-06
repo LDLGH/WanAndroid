@@ -1,6 +1,7 @@
 package com.ldl.wanandroid.ui.main.activity
 
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.ldl.wanandroid.R
 import com.ldl.wanandroid.R.layout.activity_splash
@@ -15,21 +16,10 @@ import kotlinx.android.synthetic.main.activity_splash.*
  */
 class SplashActivity : BaseActivity<SplashPresenter>(), SplashContract.View {
 
-
-    override fun onBackPressed() {
-//        super.onBackPressed()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        view_lottie.cancelAnimation()
-    }
-
     override fun getLayoutId(): Int = activity_splash
 
     override fun initToolbar() {
-        //全屏显示
-        ScreenUtils.setFullScreen(this)
+        BarUtils.transparentStatusBar(this)
     }
 
     override fun initEventAndData() {
@@ -40,6 +30,15 @@ class SplashActivity : BaseActivity<SplashPresenter>(), SplashContract.View {
     override fun jumpToMain() {
         ActivityUtils.startActivity(MainActivity::class.java)
         finish()
+    }
+
+    override fun onBackPressed() {
+//        super.onBackPressed()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        view_lottie.cancelAnimation()
     }
 
 }

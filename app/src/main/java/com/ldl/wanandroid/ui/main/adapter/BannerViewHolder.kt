@@ -23,7 +23,7 @@ class BannerViewHolder : ViewHolder<BannerData> {
             .apply(
                 RequestOptions.bitmapTransform(
                     RoundedCornersTransformation(
-                        45, 0,
+                        30, 0,
                         RoundedCornersTransformation.CornerType.ALL
                     )
                 )
