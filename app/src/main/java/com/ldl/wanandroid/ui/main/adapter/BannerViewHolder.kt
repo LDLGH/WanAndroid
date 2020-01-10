@@ -2,7 +2,7 @@ package com.ldl.wanandroid.ui.main.adapter
 
 import android.view.View
 import android.widget.ImageView
-import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.ldl.wanandroid.R
 import com.ldl.wanandroid.R.layout.layout_banner
 import com.ldl.wanandroid.core.bean.main.banner.BannerData
@@ -20,12 +20,10 @@ class BannerViewHolder : ViewHolder<BannerData> {
         val imageView = itemView?.findViewById<ImageView>(R.id.iv_banner)
         GlideApp.with(imageView!!.context)
             .load(data?.imagePath)
-            .apply(
-                RequestOptions.bitmapTransform(
-                    RoundedCornersTransformation(
-                        30, 0,
-                        RoundedCornersTransformation.CornerType.ALL
-                    )
+            .transform(
+                CenterCrop(), RoundedCornersTransformation(
+                    30, 0,
+                    RoundedCornersTransformation.CornerType.ALL
                 )
             )
             .into(imageView)

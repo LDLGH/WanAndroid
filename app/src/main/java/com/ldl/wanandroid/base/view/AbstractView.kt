@@ -40,15 +40,9 @@ interface AbstractView {
      */
     fun reload()
 
-    /**
-     * Show login view
-     */
-    fun showLoginView()
+    fun loading()
 
-    /**
-     * Show logout view
-     */
-    fun showLogoutView()
+    fun hideLoading()
 
     /**
      * Show collect success

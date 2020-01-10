@@ -5,4 +5,17 @@ package com.ldl.wanandroid.core.prefs
  * 类说明：
  */
 interface PreferenceHelper {
+
+    fun setPassword(password: String)
+
+    fun getPassword(): String
+
+    fun setAccount(account: String)
+
+    fun getAccount(): String
+
+    fun setLoginStatus(loginStatus: Boolean)
+
+    fun getLoginStatus(): Boolean
+
 }

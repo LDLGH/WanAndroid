@@ -8,4 +8,9 @@ import kotlinx.android.parcel.Parcelize
  * 类说明：
  */
 @Parcelize
-data class EventMsg(var msg: String) : Parcelable
+data class EventMsg(var code: Int, var msg: String) : Parcelable {
+
+    companion object {
+        const val LOGIN = 0x0001
+    }
+}

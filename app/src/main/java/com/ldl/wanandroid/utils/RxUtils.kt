@@ -39,7 +39,6 @@ object RxUtils {
             httpResponseObservable.flatMap(Function<BaseResponse<T>, Observable<T>> { baseResponse: BaseResponse<T> ->
                 if (baseResponse.errorCode == BaseResponse.SUCCESS
                     && baseResponse.data != null
-                    && NetworkUtils.isConnected()
                 ) {
                     return@Function createData(baseResponse.data)
                 } else {

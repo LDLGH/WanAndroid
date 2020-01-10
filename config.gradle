@@ -32,6 +32,7 @@ ext {
             "gloading"                     : "com.billy.android:gloading:1.0.0",
             "flowlayout"                   : "com.hyman:flowlayout-lib:1.1.2",
             "Banner"                       : "com.github.zhpanvip:BannerViewPager:2.6.4",
+            "xpopup"                        : 'com.lxj:xpopup:1.8.10-x',
 
             //net
             "okhttp"                       : "com.squareup.okhttp3:okhttp:${version["okhttpVersion"]}",
@@ -73,7 +74,7 @@ ext {
 
             //other
             "utilcode"                     : "com.blankj:utilcodex:1.26.0",
-            "BaseRecyclerViewAdapterHelper": "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.0-beta6",
+            "BaseRecyclerViewAdapterHelper": "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.0-beta9",
             "stetho"                       : "com.facebook.stetho:stetho:1.5.0",
             "stetho-okhttp3"               : "com.facebook.stetho:stetho-okhttp3:1.4.2",
             "PersistentCookieJar"          : "com.github.franmontiel:PersistentCookieJar:v1.0.1",

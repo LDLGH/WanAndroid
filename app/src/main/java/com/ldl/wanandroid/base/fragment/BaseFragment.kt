@@ -8,6 +8,8 @@ import com.blankj.utilcode.util.SnackbarUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.ldl.wanandroid.base.presenter.AbstractPresenter
 import com.ldl.wanandroid.base.view.AbstractView
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.core.BasePopupView
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
@@ -22,6 +24,8 @@ abstract class BaseFragment<T : AbstractPresenter> : AbstractSimpleFragment(),
 
     @set:Inject
     protected var mPresenter: T? = null
+
+    private var loadView: BasePopupView? = null
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -68,10 +72,15 @@ abstract class BaseFragment<T : AbstractPresenter> : AbstractSimpleFragment(),
     override fun showCancelCollectSuccess() {
     }
 
-    override fun showLoginView() {
+    override fun loading() {
+        loadView = XPopup.Builder(mActivity)
+            .asLoading()
+            .show()
     }
 
-    override fun showLogoutView() {
+    override fun hideLoading() {
+        loadView?.dismiss()
+        loadView = null
     }
 
     override fun showToast(message: String?) {

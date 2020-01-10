@@ -10,4 +10,10 @@
     <color name="colorGray">#999999</color>
     <color name="colorTextBlack">#333333</color>
     <color name="colorTextGray">#999999</color>
+    <color name="colorBackground">#F2F2F2</color>
+    <color name="colorNormal">#EEEEEE</color>
+    <color name="colorPressed">#CCCCCC</color>
+    <color name="colorHint">#BBBBBB</color>
+    <color name="colorBlue">#0070BB</color>
+
 </resources>

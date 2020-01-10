@@ -32,8 +32,6 @@ import javax.inject.Inject
  */
 class WanAndroidApp : Application(), HasAndroidInjector {
 
-    private val instance: WanAndroidApp? = null
-
     @set:Inject
     var mAndroidInjector: DispatchingAndroidInjector<Any>? = null
 
@@ -41,6 +39,10 @@ class WanAndroidApp : Application(), HasAndroidInjector {
     private var appComponent: AppComponent? = null
 
     private var mDaoSession: DaoSession? = null
+
+    companion object {
+        var getInstance: WanAndroidApp? = null
+    }
 
     //static 代码段可以防止内存泄露, 全局设置刷新头部及尾部，优先级最低
     init {
@@ -56,13 +58,10 @@ class WanAndroidApp : Application(), HasAndroidInjector {
         }
     }
 
-    @Synchronized
-    fun getInstance(): WanAndroidApp? {
-        return instance
-    }
-
     override fun onCreate() {
         super.onCreate()
+
+        getInstance = this
 
         CrashReport.initCrashReport(this, Constants.BUGLY_ID, BuildConfig.DEBUG)
 
@@ -71,8 +70,10 @@ class WanAndroidApp : Application(), HasAndroidInjector {
         if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this)
         }
-        initAppComponent()
+
         initGreenDao()
+
+        initAppComponent()
 
         Gloading.initDefault(GlobalAdapter())
     }

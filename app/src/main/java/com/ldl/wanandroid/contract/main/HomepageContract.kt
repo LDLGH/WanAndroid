@@ -4,7 +4,9 @@ import com.ldl.wanandroid.base.presenter.AbstractPresenter
 import com.ldl.wanandroid.base.view.AbstractView
 import com.ldl.wanandroid.core.bean.main.banner.BannerData
 import com.ldl.wanandroid.core.bean.main.collect.FeedArticleListData
+import com.ldl.wanandroid.core.bean.main.menu.MenuData
 import com.ldl.wanandroid.core.bean.main.search.TopSearchData
+import com.ldl.wanandroid.core.bean.main.search.UsefulSiteData
 
 /**
  * 作者：LDL 创建时间：2019/12/31
@@ -22,6 +24,10 @@ interface HomepageContract {
         fun showBanner(bannerDataList: List<BannerData>)
 
         fun showTopTopSearch(topSearchDataList: List<TopSearchData>)
+
+        fun showHotSearch(usefulSiteDataList: List<UsefulSiteData>)
+
+        fun onLoginEvent()
     }
 
     interface Presenter : AbstractPresenter {
@@ -29,6 +35,8 @@ interface HomepageContract {
         fun refresh()
 
         fun loadMore()
+
+        fun getMenuList(): ArrayList<MenuData>
 
         fun getFeedArticleList()
 

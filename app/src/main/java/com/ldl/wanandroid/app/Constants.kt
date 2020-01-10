@@ -19,6 +19,13 @@ class Constants {
         const val DB_NAME = "wan_android.db"
 
         const val BUGLY_ID = "68b4f35622"
+
+        const val ACCOUNT = "account"
+
+        const val PASSWORD = "password"
+
+        const val LOGIN_STATUS = "login_status"
+
     }
 
 

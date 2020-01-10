@@ -5,11 +5,14 @@ import com.blankj.utilcode.util.SnackbarUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.ldl.wanandroid.base.presenter.AbstractPresenter
 import com.ldl.wanandroid.base.view.AbstractView
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.core.BasePopupView
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
+
 
 /**
  * 作者：LDL 创建时间：2019/12/25
@@ -23,6 +26,8 @@ abstract class BaseActivity<T : AbstractPresenter> : AbstractSimpleActivity(),
     lateinit var mAndroidInjector: DispatchingAndroidInjector<Any>
     @set:Inject
     protected var mPresenter: T? = null
+
+    private var loadView: BasePopupView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -58,16 +63,21 @@ abstract class BaseActivity<T : AbstractPresenter> : AbstractSimpleActivity(),
 
     override fun reload() {}
 
+    override fun loading() {
+        loadView = XPopup.Builder(this)
+            .asLoading()
+            .show()
+    }
+
+    override fun hideLoading() {
+        loadView?.dismiss()
+        loadView = null
+    }
+
     override fun showCollectSuccess() {
     }
 
     override fun showCancelCollectSuccess() {
-    }
-
-    override fun showLoginView() {
-    }
-
-    override fun showLogoutView() {
     }
 
     override fun showToast(message: String?) {

@@ -10,12 +10,11 @@ import io.reactivex.disposables.Disposable
  * 类说明： Base Presenter
  * 管理事件流订阅的生命周期
  */
-@Suppress("UNCHECKED_CAST")
 open class BasePresenter<T : AbstractView> constructor() : AbstractPresenter {
 
     protected var mView: T? = null
 
-    private var compositeDisposable: CompositeDisposable? = null
+    protected var compositeDisposable: CompositeDisposable? = null
 
     private lateinit var dataManager: DataManager
 
@@ -23,6 +22,7 @@ open class BasePresenter<T : AbstractView> constructor() : AbstractPresenter {
         this.dataManager = dataManager
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun attachView(view: AbstractView) {
         mView = view as T
     }
@@ -40,25 +40,15 @@ open class BasePresenter<T : AbstractView> constructor() : AbstractPresenter {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun setLoginStatus(loginStatus: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun setLoginStatus(loginStatus: Boolean) = dataManager.setLoginStatus(loginStatus)
 
-    override fun getLoginStatus(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getLoginStatus(): Boolean = dataManager.getLoginStatus()
 
-    override fun getLoginAccount(): String? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getLoginAccount(): String? = dataManager.getAccount()
 
-    override fun setLoginAccount(account: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun setLoginAccount(account: String?) = dataManager.setAccount(account!!)
 
-    override fun setLoginPassword(password: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun setLoginPassword(password: String?) = dataManager.setPassword(password!!)
 
     override fun getCurrentPage(): Int {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

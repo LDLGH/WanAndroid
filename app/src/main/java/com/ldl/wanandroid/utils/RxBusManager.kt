@@ -9,7 +9,7 @@ import com.ldl.wanandroid.core.bean.event.EventMsg
  */
 object RxBusManager {
 
-    private const val TAG = "RxBusManager"
+    private const val TAG = "WanAndroidApp"
 
     fun <T> subscribe(
         subscriber: Any,

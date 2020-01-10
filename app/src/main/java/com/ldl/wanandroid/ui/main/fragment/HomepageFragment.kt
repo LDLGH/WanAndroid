@@ -12,14 +12,14 @@ import com.ldl.wanandroid.R
 import com.ldl.wanandroid.R.layout.fragment_homepage
 import com.ldl.wanandroid.base.fragment.BaseRootFragment
 import com.ldl.wanandroid.contract.main.HomepageContract
-import com.ldl.wanandroid.core.bean.main.MainData
+import com.ldl.wanandroid.core.bean.main.HomepageMultiData
 import com.ldl.wanandroid.core.bean.main.banner.BannerData
 import com.ldl.wanandroid.core.bean.main.collect.FeedArticleListData
-import com.ldl.wanandroid.core.bean.main.menu.MenuData
 import com.ldl.wanandroid.core.bean.main.search.TopSearchData
+import com.ldl.wanandroid.core.bean.main.search.UsefulSiteData
 import com.ldl.wanandroid.presenter.main.HomepagePresenter
 import com.ldl.wanandroid.ui.main.adapter.BannerViewHolder
-import com.ldl.wanandroid.ui.main.adapter.MainAdapter
+import com.ldl.wanandroid.ui.main.adapter.HomepageAdapter
 import com.ldl.wanandroid.ui.main.adapter.MenuAdapter
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.PageStyle.MULTI_PAGE_SCALE
@@ -32,21 +32,11 @@ import kotlinx.android.synthetic.main.fragment_homepage.*
 @SuppressLint("InflateParams")
 class HomepageFragment : BaseRootFragment<HomepagePresenter>(), HomepageContract.View {
 
-    private var menuList = ArrayList<MenuData>()
-
-    init {
-        menuList.add(MenuData("文章", ""))
-        menuList.add(MenuData("知识体系", ""))
-        menuList.add(MenuData("公众号", ""))
-        menuList.add(MenuData("导航", ""))
-        menuList.add(MenuData("项目", ""))
-    }
-
     private lateinit var mHeadView: View
     private var mBanner: BannerViewPager<BannerData, BannerViewHolder>? = null
-    private lateinit var mAdapter: MainAdapter
+    private lateinit var mAdapter: HomepageAdapter
 
-    private var mainDataList = ArrayList<MainData>()
+    private val mHomepageMultiData: ArrayList<HomepageMultiData> by lazy { ArrayList<HomepageMultiData>() }
 
     override fun getLayoutId(): Int = fragment_homepage
 
@@ -67,7 +57,7 @@ class HomepageFragment : BaseRootFragment<HomepagePresenter>(), HomepageContract
         val rvMenu = mHeadView.findViewById<RecyclerView>(R.id.rv_menu)
         rvMenu.setHasFixedSize(true)
         rvMenu.layoutManager = GridLayoutManager(mActivity, 5)
-        val menuAdapter = MenuAdapter(menuList)
+        val menuAdapter = MenuAdapter(mPresenter!!.getMenuList())
         rvMenu.adapter = menuAdapter
         menuAdapter.setOnItemClickListener { adapter, view, position ->
 
@@ -75,12 +65,11 @@ class HomepageFragment : BaseRootFragment<HomepagePresenter>(), HomepageContract
     }
 
     private fun initRecyclerView() {
-        mAdapter = MainAdapter(mainDataList)
+        mAdapter = HomepageAdapter(mHomepageMultiData)
         recyclerView.layoutManager = LinearLayoutManager(mActivity)
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = mAdapter
         mAdapter.addHeaderView(mHeadView)
-        mAdapter.setOnItemChildClickListener { adapter, view, position -> }
     }
 
     private fun initBanner(bannerDataList: List<BannerData>) {
@@ -104,15 +93,14 @@ class HomepageFragment : BaseRootFragment<HomepagePresenter>(), HomepageContract
     override fun showArticleList(feedArticleListData: FeedArticleListData, isRefresh: Boolean) {
         if (isRefresh) {
             swipeRefreshLayout.isRefreshing = false
-            val data = MainData(
+            val data = HomepageMultiData(
+                HomepageMultiData.ARTICLE,
                 getString(R.string.recommended_article),
                 getString(R.string.carefully_selected_for_you),
                 GsonUtils.toJson(feedArticleListData.datas)
             )
-            mainDataList.add(data)
-            val list = ArrayList<MainData>()
-            list.add(data)
-            mAdapter.setNewData(list)
+            mHomepageMultiData.clear()
+            mHomepageMultiData.add(data)
         }
     }
 
@@ -125,6 +113,49 @@ class HomepageFragment : BaseRootFragment<HomepagePresenter>(), HomepageContract
         topSearchDataList.forEach {
             list.add(it.name)
         }
+        val data = HomepageMultiData(
+            HomepageMultiData.HOT_SEARCH,
+            getString(R.string.hot_search),
+            getString(R.string.discover_more),
+            GsonUtils.toJson(list)
+        )
+        mHomepageMultiData.add(data)
+    }
+
+    override fun showHotSearch(usefulSiteDataList: List<UsefulSiteData>) {
+        val list = arrayListOf<String>()
+        usefulSiteDataList.forEachIndexed { index, usefulSiteData ->
+            if (index < 10) {
+                list.add(usefulSiteData.name)
+            }
+        }
+        val data = HomepageMultiData(
+            HomepageMultiData.USEFUL_SITES,
+            getString(R.string.useful_sites),
+            getString(R.string.website_collection),
+            GsonUtils.toJson(list)
+        )
+        mHomepageMultiData.add(data)
+        if (!mPresenter!!.getLoginStatus()) {
+            val loginData = HomepageMultiData(
+                HomepageMultiData.LOGIN,
+                getString(R.string.login_immediately),
+                getString(R.string.login_collect_articles),
+                ""
+            )
+            mHomepageMultiData.add(loginData)
+        }
+        mAdapter.setNewData(mHomepageMultiData)
+    }
+
+    override fun onLoginEvent() {
+        mHomepageMultiData.removeAt(3)
+        mAdapter.setNewData(mHomepageMultiData)
+    }
+
+    override fun reload() {
+        super.reload()
+        mPresenter?.getAllData(true)
     }
 
     override fun onResume() {

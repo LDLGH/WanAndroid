@@ -4,6 +4,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.FragmentUtils
 import com.ldl.wanandroid.R
@@ -11,6 +12,7 @@ import com.ldl.wanandroid.R.layout.activity_main
 import com.ldl.wanandroid.base.activity.BaseActivity
 import com.ldl.wanandroid.presenter.main.MainPresenter
 import com.ldl.wanandroid.ui.main.fragment.HomepageFragment
+import com.ldl.wanandroid.utils.ShortcutUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -28,6 +30,7 @@ class MainActivity : BaseActivity<MainPresenter>() {
     override fun initEventAndData() {
         initFragments()
         initDrawerLayout()
+        ShortcutUtils.register(this)
     }
 
     private fun initFragments() {
@@ -49,7 +52,10 @@ class MainActivity : BaseActivity<MainPresenter>() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_search -> true
+            R.id.action_search -> {
+                ActivityUtils.startActivity(SearchActivity::class.java)
+                return true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
