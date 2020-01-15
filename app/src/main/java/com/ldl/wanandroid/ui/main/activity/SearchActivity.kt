@@ -11,6 +11,8 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.*
+import com.jakewharton.rxbinding3.view.clicks
+import com.jakewharton.rxbinding3.widget.editorActionEvents
 import com.ldl.wanandroid.R
 import com.ldl.wanandroid.R.layout.activity_search
 import com.ldl.wanandroid.base.activity.BaseActivity
@@ -23,6 +25,7 @@ import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
 import com.zhy.view.flowlayout.TagFlowLayout
 import kotlinx.android.synthetic.main.activity_search.*
+import java.util.concurrent.TimeUnit
 
 /**
  * 作者：LDL 创建时间：2020/1/7
@@ -54,18 +57,22 @@ class SearchActivity : BaseActivity<SearchPresenter>(), SearchContract.View {
     }
 
     private fun initEditText() {
-        et_search.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val s = et_search.text.toString()
-                if (ObjectUtils.isEmpty(s)) {
-                    return@setOnEditorActionListener true
+        mPresenter?.addRxBindingSubscribe(
+            et_search.editorActionEvents().subscribe {
+                if (it.actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    val s = et_search.text.toString()
+                    if (ObjectUtils.isEmpty(s)) {
+                        return@subscribe
+                    }
+                    mPresenter?.addHistoryData(s)
+                    KeyboardUtils.hideSoftInput(this)
+                    return@subscribe
                 }
-                mPresenter?.addHistoryData(s)
-                KeyboardUtils.hideSoftInput(this)
-                return@setOnEditorActionListener true
+                return@subscribe
             }
-            return@setOnEditorActionListener false
-        }
+
+        )
+
     }
 
     @SuppressLint("InflateParams")
@@ -75,10 +82,13 @@ class SearchActivity : BaseActivity<SearchPresenter>(), SearchContract.View {
         mClHistory = headView.findViewById(R.id.cl_history)
         val ivDel = headView.findViewById<ImageView>(R.id.iv_del)
         mFlHistory = headView.findViewById(R.id.fl_history)
-        ivDel.setOnClickListener {
-            mPresenter?.clearHistoryData()
-            mClHistory?.visibility = View.GONE
-        }
+        mPresenter?.addRxBindingSubscribe(ivDel.clicks()
+            .throttleFirst(2, TimeUnit.SECONDS)
+            .subscribe {
+                mPresenter?.clearHistoryData()
+                mClHistory?.visibility = View.GONE
+            }
+        )
     }
 
     private fun initRecyclerView() {
@@ -120,7 +130,7 @@ class SearchActivity : BaseActivity<SearchPresenter>(), SearchContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                ActivityUtils.finishActivity(this)
+                ActivityUtils.finishActivity(this, true)
                 return true
             }
             R.id.action_search -> {

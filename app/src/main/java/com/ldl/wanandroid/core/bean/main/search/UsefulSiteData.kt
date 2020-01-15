@@ -1,5 +1,7 @@
 package com.ldl.wanandroid.core.bean.main.search
 
+import java.io.Serializable
+
 /**
  * 作者：LDL 创建时间：2020/1/7
  * 类说明：
@@ -11,4 +13,4 @@ data class UsefulSiteData(
     var visible: Int,
     var order: Int,
     var icon: String
-)
+) : Serializable

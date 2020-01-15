@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.ldl.wanandroid.R
 import com.ldl.wanandroid.core.bean.main.HomepageMultiData
+import com.ldl.wanandroid.core.bean.main.search.TopSearchData
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
 import com.zhy.view.flowlayout.TagFlowLayout
@@ -33,14 +34,14 @@ class HotSearchItemProvider : BaseItemProvider<HomepageMultiData>() {
 
         val flowLayout = helper.getView<TagFlowLayout>(R.id.flowLayout)
 
-        val list = GsonUtils.fromJson<ArrayList<String>>(
+        val list = GsonUtils.fromJson<List<TopSearchData>>(
             data?.data,
-            GsonUtils.getListType(String::class.java)
+            GsonUtils.getListType(TopSearchData::class.java)
         )
-        val tagAdapter = object : TagAdapter<String>(list) {
-            override fun getView(parent: FlowLayout?, position: Int, t: String?): View {
+        val tagAdapter = object : TagAdapter<TopSearchData>(list) {
+            override fun getView(parent: FlowLayout?, position: Int, t: TopSearchData?): View {
                 val tv = TextView(flowLayout.context)
-                tv.text = t
+                tv.text = t?.name
                 tv.setTextColor(ColorUtils.getColor(R.color.colorWhite))
                 tv.textSize = 12f
                 tv.setPadding(ConvertUtils.dp2px(4f))
@@ -52,8 +53,8 @@ class HotSearchItemProvider : BaseItemProvider<HomepageMultiData>() {
             }
         }
         flowLayout.adapter = tagAdapter
-        flowLayout.setOnTagClickListener { view, position, parent ->
-            ToastUtils.showShort(list[position])
+        flowLayout.setOnTagClickListener { _, position, _ ->
+            ToastUtils.showShort(list[position].name)
             return@setOnTagClickListener true
         }
     }

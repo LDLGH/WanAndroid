@@ -61,6 +61,6 @@
         android:paddingLeft="@dimen/margin"
         android:paddingRight="@dimen/margin"
         app:layout_constraintTop_toBottomOf="@id/cl_head"
-        tools:listitem="@layout/item_article" />
+        tools:listitem="@layout/item_article_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,7 @@ import com.ldl.wanandroid.core.bean.main.collect.FeedArticleListData
 import com.ldl.wanandroid.core.bean.main.login.LoginData
 import com.ldl.wanandroid.core.bean.main.search.TopSearchData
 import com.ldl.wanandroid.core.bean.main.search.UsefulSiteData
+import com.ldl.wanandroid.core.bean.navigation.NavigationListData
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -27,6 +28,9 @@ class HttpHelperImpl @Inject constructor(var apis: Apis) : HttpHelper {
 
     override fun getUsefulSites(): Observable<BaseResponse<List<UsefulSiteData>>> =
         apis.getUsefulSites()
+
+    override fun getNavigationListData(): Observable<BaseResponse<ArrayList<NavigationListData>>> =
+        apis.getNavigationListData()
 
     override fun getLoginData(
         username: String?,

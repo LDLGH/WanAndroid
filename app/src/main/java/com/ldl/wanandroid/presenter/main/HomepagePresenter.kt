@@ -19,11 +19,8 @@ import com.ldl.wanandroid.core.http.rx.BaseObserver
 import com.ldl.wanandroid.utils.RxBusManager
 import com.ldl.wanandroid.utils.RxUtils
 import io.reactivex.Observable
-import io.reactivex.functions.Function3
 import io.reactivex.functions.Function4
-import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 /**
  * 作者：LDL 创建时间：2019/12/31
@@ -48,9 +45,9 @@ class HomepagePresenter @Inject constructor(var dataManager: DataManager) :
     override fun getMenuList(): ArrayList<MenuData> {
         val menuList: ArrayList<MenuData> by lazy { ArrayList<MenuData>() }
         menuList.add(MenuData("文章", ""))
+        menuList.add(MenuData("导航", ""))
         menuList.add(MenuData("知识体系", ""))
         menuList.add(MenuData("公众号", ""))
-        menuList.add(MenuData("导航", ""))
         menuList.add(MenuData("项目", ""))
         return menuList
     }

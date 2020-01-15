@@ -13,9 +13,15 @@ data class HomepageMultiData(
     var data: String
 ) : MultiItemEntity {
     companion object {
+
         const val ARTICLE = 0
+
         const val HOT_SEARCH = 1
+
         const val USEFUL_SITES = 2
+
         const val LOGIN = 3
+
+        const val BOTTOM_LINE = 4
     }
 }

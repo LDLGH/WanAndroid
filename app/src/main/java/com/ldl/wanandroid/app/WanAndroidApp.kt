@@ -1,9 +1,11 @@
 package com.ldl.wanandroid.app
 
+import android.app.Activity
 import android.app.Application
 import android.content.Context
 import androidx.core.content.ContextCompat
 import com.billy.android.loading.Gloading
+import com.billy.android.swipe.SmartSwipeBack
 import com.blankj.utilcode.util.Utils
 import com.bumptech.glide.Glide
 import com.facebook.stetho.Stetho
@@ -15,6 +17,8 @@ import com.ldl.wanandroid.di.component.AppComponent
 import com.ldl.wanandroid.di.component.DaggerAppComponent
 import com.ldl.wanandroid.di.module.AppModule
 import com.ldl.wanandroid.di.module.HttpModule
+import com.ldl.wanandroid.ui.main.activity.MainActivity
+import com.ldl.wanandroid.ui.main.activity.SplashActivity
 import com.ldl.wanandroid.ui.main.adapter.GlobalAdapter
 import com.scwang.smartrefresh.header.DeliveryHeader
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -76,6 +80,10 @@ class WanAndroidApp : Application(), HasAndroidInjector {
         initAppComponent()
 
         Gloading.initDefault(GlobalAdapter())
+
+        SmartSwipeBack.activitySlidingBack(
+            this
+        ) { activity -> !((activity is MainActivity) or (activity is SplashActivity)) }
     }
 
     override fun onTrimMemory(level: Int) {

@@ -21,5 +21,7 @@ interface LoginAndRegisterContract {
         fun login(username: String?, password: String?)
 
         fun register(username: String?, password: String?)
+
+        fun registerAndLogin(username: String?, password: String?)
     }
 }

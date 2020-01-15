@@ -6,8 +6,8 @@ import com.ldl.wanandroid.core.bean.main.collect.FeedArticleListData
 import com.ldl.wanandroid.core.bean.main.login.LoginData
 import com.ldl.wanandroid.core.bean.main.search.TopSearchData
 import com.ldl.wanandroid.core.bean.main.search.UsefulSiteData
+import com.ldl.wanandroid.core.bean.navigation.NavigationListData
 import io.reactivex.Observable
-import retrofit2.http.GET
 
 /**
  * 作者：LDL 创建时间：2019/12/26
@@ -46,6 +46,14 @@ interface HttpHelper {
      * @return 常用网站数据
      */
     fun getUsefulSites(): Observable<BaseResponse<List<UsefulSiteData>>>
+
+    /**
+     * 导航
+     * http://www.wanandroid.com/navi/json
+     *
+     * @return 知识体系feed文章数据
+     */
+    fun getNavigationListData(): Observable<BaseResponse<ArrayList<NavigationListData>>>
 
     /**
      * 登陆

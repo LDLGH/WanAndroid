@@ -1,10 +1,8 @@
 package com.ldl.wanandroid.di.module
 
 import com.ldl.wanandroid.di.component.BaseActivityComponent
-import com.ldl.wanandroid.ui.main.activity.LoginAndRegisterActivity
-import com.ldl.wanandroid.ui.main.activity.MainActivity
-import com.ldl.wanandroid.ui.main.activity.SearchActivity
-import com.ldl.wanandroid.ui.main.activity.SplashActivity
+import com.ldl.wanandroid.ui.main.activity.*
+import com.ldl.wanandroid.ui.navigation.activity.NavigationActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -26,4 +24,13 @@ abstract class AbstractAllActivityModule {
 
     @ContributesAndroidInjector(modules = [LoginAndRegisterActivityModule::class])
     abstract fun contributesLoginAndRegisterActivityInjector(): LoginAndRegisterActivity
+
+    @ContributesAndroidInjector(modules = [WebViewActivityModule::class])
+    abstract fun contributesWebViewActivityInjector(): WebViewActivity
+
+    @ContributesAndroidInjector(modules = [ArticleActivityModule::class])
+    abstract fun contributesArticleActivityInjector(): ArticleActivity
+
+    @ContributesAndroidInjector(modules = [NavigationActivityModule::class])
+    abstract fun contributesNavigationActivityInjector(): NavigationActivity
 }

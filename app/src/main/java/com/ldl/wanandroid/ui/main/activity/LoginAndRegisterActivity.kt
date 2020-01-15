@@ -13,7 +13,6 @@ import com.ldl.wanandroid.R.layout.activity_login_register
 import com.ldl.wanandroid.base.activity.BaseActivity
 import com.ldl.wanandroid.contract.main.LoginAndRegisterContract
 import com.ldl.wanandroid.presenter.main.LoginAndRegisterPresenter
-import com.ldl.wanandroid.utils.RxUtils
 import kotlinx.android.synthetic.main.activity_login_register.*
 import kotlinx.android.synthetic.main.activity_search.toolbar
 import java.util.concurrent.TimeUnit
@@ -37,6 +36,7 @@ class LoginAndRegisterActivity : BaseActivity<LoginAndRegisterPresenter>(),
     }
 
     override fun onViewCreated() {
+        super.onViewCreated()
         mPresenter?.addRxBindingSubscribe(btn_login.clicks()
             .subscribe {
                 isLogin = true
@@ -48,7 +48,6 @@ class LoginAndRegisterActivity : BaseActivity<LoginAndRegisterPresenter>(),
                 isLogin = false
                 onViewData()
             })
-
         mPresenter?.addRxBindingSubscribe(btn_submit.clicks()
             .throttleFirst(2, TimeUnit.SECONDS)
             .subscribe {
@@ -66,7 +65,7 @@ class LoginAndRegisterActivity : BaseActivity<LoginAndRegisterPresenter>(),
                 if (isLogin) {
                     mPresenter?.login(username, password)
                 } else {
-                    mPresenter?.register(username, password)
+                    mPresenter?.registerAndLogin(username, password)
                 }
             })
 
@@ -101,7 +100,7 @@ class LoginAndRegisterActivity : BaseActivity<LoginAndRegisterPresenter>(),
         if (cl_head.isVisible) {
             cl_head.visibility = View.GONE
             cl_content.visibility = View.VISIBLE
-            toolbar.setNavigationIcon(R.drawable.ic_clear_black_24dp)
+            toolbar.setNavigationIcon(R.drawable.ic_clear_white_24dp)
         } else {
             super.onBackPressed()
         }

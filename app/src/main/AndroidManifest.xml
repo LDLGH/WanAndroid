@@ -51,6 +51,9 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.main.activity.LoginAndRegisterActivity" />
+        <activity android:name=".ui.main.activity.WebViewActivity" />
+        <activity android:name=".ui.main.activity.ArticleActivity" />
+        <activity android:name=".ui.navigation.activity.NavigationActivity" />
     </application>
 
 </manifest>

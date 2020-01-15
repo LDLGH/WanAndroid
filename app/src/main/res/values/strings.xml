@@ -17,17 +17,16 @@
     <string name="input_username">请输入用户名</string>
     <string name="password_limit">密码错误不能少于6个字符</string>
 
-    //主页
-    <string name="failed_to_obtain_article_list">获取文章列表数据失败</string>
-
     //navigation
     <string name="login_or_register">登录或创建帐号</string>
     <string name="setting">设置</string>
     <string name="about_us">关于我们</string>
     <string name="open">open</string>
     <string name="close">close</string>
+    <string name="logout">退出登录</string>
 
     <string name="menu_main">首页</string>
+    <string name="menu_article">文章</string>
     <string name="menu_knowledge">知识</string>
     <string name="menu_wx">公众号</string>
     <string name="menu_navigation">导航</string>
@@ -51,5 +50,7 @@
     <string name="hot_search_list">热搜榜</string>
     <string name="hot">HOT</string>
     <string name="history_record">历史记录</string>
-
+    <string name="have_bottom_line">我是有底线的</string>
+    <string name="collect">收藏</string>
+    <string name="failed_to_obtain_article_list">获取文章列表数据失败</string>
 </resources>

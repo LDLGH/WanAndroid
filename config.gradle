@@ -1,11 +1,12 @@
 ext {
 
     android = [
-            compileSdkVersion: 28,
-            minSdkVersion    : 21,
-            targetSdkVersion : 28,
-            versionCode      : 1,
-            versionName      : "1.0",
+            compileSdkVersion    : 28,
+            minSdkVersion        : 21,
+            targetSdkVersion     : 28,
+            versionCode          : 1,
+            versionName          : "1.0",
+            renderscriptTargetApi: 21
     ]
 
     version = [
@@ -32,7 +33,9 @@ ext {
             "gloading"                     : "com.billy.android:gloading:1.0.0",
             "flowlayout"                   : "com.hyman:flowlayout-lib:1.1.2",
             "Banner"                       : "com.github.zhpanvip:BannerViewPager:2.6.4",
-            "xpopup"                        : 'com.lxj:xpopup:1.8.10-x',
+            "xpopup"                       : 'com.lxj:xpopup:1.8.10-x',
+            "circleimageview"              : 'de.hdodenhof:circleimageview:3.0.1',
+            "agentweb"                     : 'com.just.agentweb:agentweb:4.1.2',
 
             //net
             "okhttp"                       : "com.squareup.okhttp3:okhttp:${version["okhttpVersion"]}",
@@ -74,12 +77,14 @@ ext {
 
             //other
             "utilcode"                     : "com.blankj:utilcodex:1.26.0",
-            "BaseRecyclerViewAdapterHelper": "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.0-beta9",
+            "BaseRecyclerViewAdapterHelper": "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.0-beta11",
             "stetho"                       : "com.facebook.stetho:stetho:1.5.0",
             "stetho-okhttp3"               : "com.facebook.stetho:stetho-okhttp3:1.4.2",
             "PersistentCookieJar"          : "com.github.franmontiel:PersistentCookieJar:v1.0.1",
             "lottie"                       : "com.airbnb.android:lottie:3.3.1",
             "bugly"                        : "com.tencent.bugly:crashreport:3.1.0",
+            "smart-swipe"                  : "com.billy.android:smart-swipe:1.1.2",
+            "smart-swipe-x"                : "com.billy.android:smart-swipe-x:1.1.0",
 
     ]
 }

@@ -4,7 +4,6 @@ import com.blankj.utilcode.util.ObjectUtils
 import com.blankj.utilcode.util.Utils
 import com.ldl.wanandroid.R
 import com.ldl.wanandroid.base.view.AbstractView
-import com.ldl.wanandroid.core.http.exception.OtherException
 import com.ldl.wanandroid.core.http.exception.ServerException
 import io.reactivex.observers.ResourceObserver
 import retrofit2.HttpException
@@ -30,7 +29,7 @@ abstract class BaseObserver<T> constructor(
                 view.showErrorMsg(errorMsg)
             }
             e is ServerException -> {
-                view.showErrorMsg(e.toString())
+                view.showErrorMsg(e.message)
             }
             e is HttpException -> {
                 view.showErrorMsg(Utils.getApp().getString(R.string.http_error))

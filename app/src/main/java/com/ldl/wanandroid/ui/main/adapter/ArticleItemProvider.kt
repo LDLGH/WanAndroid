@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.GsonUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -12,6 +13,8 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.ldl.wanandroid.R
 import com.ldl.wanandroid.core.bean.main.HomepageMultiData
 import com.ldl.wanandroid.core.bean.main.collect.FeedArticleData
+import com.ldl.wanandroid.ui.main.activity.ArticleActivity
+import com.ldl.wanandroid.ui.main.activity.WebViewActivity
 import com.ldl.wanandroid.utils.CustomDividerItemDecoration
 
 /**
@@ -54,8 +57,8 @@ class ArticleItemProvider : BaseItemProvider<HomepageMultiData>() {
             )
         val articleListAdapter = ArticleListAdapter(articleData)
         rvContent.adapter = articleListAdapter
-        articleListAdapter.setOnItemClickListener { adapter, view, position ->
-
+        articleListAdapter.setOnItemClickListener { _, _, position ->
+            WebViewActivity.start(articleData[position].title, articleData[position].link)
         }
     }
 
@@ -65,6 +68,6 @@ class ArticleItemProvider : BaseItemProvider<HomepageMultiData>() {
         data: HomepageMultiData,
         position: Int
     ) {
-        ToastUtils.showShort("onChildClick")
+        ActivityUtils.startActivity(ArticleActivity::class.java)
     }
 }

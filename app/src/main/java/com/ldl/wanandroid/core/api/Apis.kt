@@ -6,6 +6,7 @@ import com.ldl.wanandroid.core.bean.main.collect.FeedArticleListData
 import com.ldl.wanandroid.core.bean.main.login.LoginData
 import com.ldl.wanandroid.core.bean.main.search.TopSearchData
 import com.ldl.wanandroid.core.bean.main.search.UsefulSiteData
+import com.ldl.wanandroid.core.bean.navigation.NavigationListData
 import com.ldl.wanandroid.core.bean.project.ProjectClassifyData
 import com.ldl.wanandroid.core.bean.project.ProjectListData
 import io.reactivex.Observable
@@ -89,6 +90,15 @@ interface Apis {
      */
     @GET("project/list/{page}/json")
     fun getProjectListData(@Path("page") page: Int, @Query("cid") cid: Int): Observable<BaseResponse<ProjectListData>>
+
+    /**
+     * 导航
+     * http://www.wanandroid.com/navi/json
+     *
+     * @return 导航数据
+     */
+    @GET("navi/json")
+    fun getNavigationListData(): Observable<BaseResponse<ArrayList<NavigationListData>>>
 
     /**
      * 登陆

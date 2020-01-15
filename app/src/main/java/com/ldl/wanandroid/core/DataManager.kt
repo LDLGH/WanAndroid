@@ -6,6 +6,7 @@ import com.ldl.wanandroid.core.bean.main.collect.FeedArticleListData
 import com.ldl.wanandroid.core.bean.main.login.LoginData
 import com.ldl.wanandroid.core.bean.main.search.TopSearchData
 import com.ldl.wanandroid.core.bean.main.search.UsefulSiteData
+import com.ldl.wanandroid.core.bean.navigation.NavigationListData
 import com.ldl.wanandroid.core.dao.HistoryData
 import com.ldl.wanandroid.core.db.DbHelper
 import com.ldl.wanandroid.core.http.HttpHelper
@@ -33,6 +34,9 @@ class DataManager constructor(
 
     override fun getUsefulSites(): Observable<BaseResponse<List<UsefulSiteData>>> =
         httpHelper.getUsefulSites()
+
+    override fun getNavigationListData(): Observable<BaseResponse<ArrayList<NavigationListData>>> =
+        httpHelper.getNavigationListData()
 
     override fun getLoginData(
         username: String?,

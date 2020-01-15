@@ -15,6 +15,7 @@ class HomepageAdapter(data: ArrayList<HomepageMultiData>) :
         addItemProvider(HotSearchItemProvider())
         addItemProvider(UsefulSitesItemProvider())
         addItemProvider(LoginItemProvider())
+        addItemProvider(BottomLineProvider())
     }
 
     override fun getItemType(data: List<HomepageMultiData>, position: Int): Int {

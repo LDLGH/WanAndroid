@@ -6,8 +6,10 @@ import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.GsonUtils
+import com.blankj.utilcode.util.LogUtils
 import com.ldl.wanandroid.R
 import com.ldl.wanandroid.R.layout.fragment_homepage
 import com.ldl.wanandroid.base.fragment.BaseRootFragment
@@ -18,9 +20,11 @@ import com.ldl.wanandroid.core.bean.main.collect.FeedArticleListData
 import com.ldl.wanandroid.core.bean.main.search.TopSearchData
 import com.ldl.wanandroid.core.bean.main.search.UsefulSiteData
 import com.ldl.wanandroid.presenter.main.HomepagePresenter
+import com.ldl.wanandroid.ui.main.activity.ArticleActivity
 import com.ldl.wanandroid.ui.main.adapter.BannerViewHolder
 import com.ldl.wanandroid.ui.main.adapter.HomepageAdapter
 import com.ldl.wanandroid.ui.main.adapter.MenuAdapter
+import com.ldl.wanandroid.ui.navigation.activity.NavigationActivity
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.PageStyle.MULTI_PAGE_SCALE
 import kotlinx.android.synthetic.main.fragment_homepage.*
@@ -59,8 +63,17 @@ class HomepageFragment : BaseRootFragment<HomepagePresenter>(), HomepageContract
         rvMenu.layoutManager = GridLayoutManager(mActivity, 5)
         val menuAdapter = MenuAdapter(mPresenter!!.getMenuList())
         rvMenu.adapter = menuAdapter
-        menuAdapter.setOnItemClickListener { adapter, view, position ->
-
+        menuAdapter.setOnItemClickListener { _, _, position ->
+            when (position) {
+                0 -> {
+                    ActivityUtils.startActivity(ArticleActivity::class.java)
+                }
+                1 -> {
+                    ActivityUtils.startActivity(NavigationActivity::class.java)
+                }
+                else -> {
+                }
+            }
         }
     }
 
@@ -109,31 +122,21 @@ class HomepageFragment : BaseRootFragment<HomepagePresenter>(), HomepageContract
     }
 
     override fun showTopTopSearch(topSearchDataList: List<TopSearchData>) {
-        val list = arrayListOf<String>()
-        topSearchDataList.forEach {
-            list.add(it.name)
-        }
         val data = HomepageMultiData(
             HomepageMultiData.HOT_SEARCH,
             getString(R.string.hot_search),
             getString(R.string.discover_more),
-            GsonUtils.toJson(list)
+            GsonUtils.toJson(topSearchDataList)
         )
         mHomepageMultiData.add(data)
     }
 
     override fun showHotSearch(usefulSiteDataList: List<UsefulSiteData>) {
-        val list = arrayListOf<String>()
-        usefulSiteDataList.forEachIndexed { index, usefulSiteData ->
-            if (index < 10) {
-                list.add(usefulSiteData.name)
-            }
-        }
         val data = HomepageMultiData(
             HomepageMultiData.USEFUL_SITES,
             getString(R.string.useful_sites),
             getString(R.string.website_collection),
-            GsonUtils.toJson(list)
+            GsonUtils.toJson(usefulSiteDataList)
         )
         mHomepageMultiData.add(data)
         if (!mPresenter!!.getLoginStatus()) {
@@ -145,12 +148,15 @@ class HomepageFragment : BaseRootFragment<HomepagePresenter>(), HomepageContract
             )
             mHomepageMultiData.add(loginData)
         }
+        val bottomLineData = HomepageMultiData(
+            HomepageMultiData.BOTTOM_LINE, "", "", ""
+        )
+        mHomepageMultiData.add(bottomLineData)
         mAdapter.setNewData(mHomepageMultiData)
     }
 
     override fun onLoginEvent() {
-        mHomepageMultiData.removeAt(3)
-        mAdapter.setNewData(mHomepageMultiData)
+        mAdapter.remove(3)
     }
 
     override fun reload() {

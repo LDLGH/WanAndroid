@@ -2,7 +2,6 @@ package com.ldl.wanandroid.ui.main.adapter
 
 import com.blankj.utilcode.util.ObjectUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.ldl.wanandroid.R
 import com.ldl.wanandroid.core.bean.main.collect.FeedArticleData
@@ -12,7 +11,7 @@ import com.ldl.wanandroid.core.bean.main.collect.FeedArticleData
  * 类说明：
  */
 class ArticleListAdapter(datas: ArrayList<FeedArticleData>) :
-    BaseQuickAdapter<FeedArticleData, BaseViewHolder>(R.layout.item_article, datas) {
+    BaseQuickAdapter<FeedArticleData, BaseViewHolder>(R.layout.item_article_list, datas) {
     override fun convert(helper: BaseViewHolder, item: FeedArticleData?) {
         var author = "Android"
         if (!ObjectUtils.isEmpty(item?.author)) {

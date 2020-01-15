@@ -16,6 +16,8 @@ android {
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
         versionName rootProject.ext.android["versionName"]
+        renderscriptTargetApi rootProject.ext.android["renderscriptTargetApi"]
+        renderscriptSupportModeEnabled true    // Enable RS support
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -57,6 +59,8 @@ dependencies {
     implementation rootProject.ext.dependencies["flowlayout"]
     implementation rootProject.ext.dependencies["Banner"]
     implementation rootProject.ext.dependencies["xpopup"]
+    implementation rootProject.ext.dependencies["circleimageview"]
+    implementation rootProject.ext.dependencies["agentweb"]
 
     //net
     implementation rootProject.ext.dependencies["okhttp"]
@@ -104,6 +108,8 @@ dependencies {
     implementation rootProject.ext.dependencies["PersistentCookieJar"]
     implementation rootProject.ext.dependencies["lottie"]
     implementation rootProject.ext.dependencies["bugly"]
+    implementation rootProject.ext.dependencies["smart-swipe"]
+    implementation rootProject.ext.dependencies["smart-swipe-x"]
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
