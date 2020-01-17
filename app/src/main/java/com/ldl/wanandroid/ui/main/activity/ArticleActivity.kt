@@ -3,6 +3,7 @@ package com.ldl.wanandroid.ui.main.activity
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.ObjectUtils
 import com.ldl.wanandroid.R
 import com.ldl.wanandroid.R.layout.activity_article
 import com.ldl.wanandroid.base.activity.BaseRootActivity
@@ -23,6 +24,16 @@ class ArticleActivity : BaseRootActivity<ArticlePresenter>(), ArticleContract.Vi
     private val feedArticleDataList: ArrayList<FeedArticleData> by lazy { ArrayList<FeedArticleData>() }
 
     private lateinit var mAdapter: ArticleAdapter
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                ActivityUtils.finishActivity(this, true)
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
     override fun getLayoutId(): Int = activity_article
 
@@ -72,23 +83,18 @@ class ArticleActivity : BaseRootActivity<ArticlePresenter>(), ArticleContract.Vi
 
     override fun showArticleList(feedArticleListData: FeedArticleListData, isRefresh: Boolean) {
         if (isRefresh) {
+            mAdapter.loadMoreModule?.isEnableLoadMore = true
             swipeRefreshLayout.isRefreshing = false
             feedArticleDataList.clear()
             mAdapter.setNewData(feedArticleListData.datas)
         } else {
-            mAdapter.loadMoreModule?.loadMoreComplete()
-            mAdapter.addData(feedArticleListData.datas)
+            if (ObjectUtils.isNotEmpty(feedArticleListData.datas)) {
+                mAdapter.addData(feedArticleListData.datas)
+                mAdapter.loadMoreModule?.loadMoreComplete()
+            } else
+                mAdapter.loadMoreModule?.loadMoreEnd()
         }
         feedArticleDataList.addAll(feedArticleListData.datas)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                ActivityUtils.finishActivity(this, true)
-                return true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 }

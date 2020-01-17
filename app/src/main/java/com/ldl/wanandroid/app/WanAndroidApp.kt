@@ -1,29 +1,18 @@
 package com.ldl.wanandroid.app
 
-import android.app.Activity
 import android.app.Application
-import android.content.Context
-import androidx.core.content.ContextCompat
 import com.billy.android.loading.Gloading
-import com.billy.android.swipe.SmartSwipeBack
 import com.blankj.utilcode.util.Utils
 import com.bumptech.glide.Glide
 import com.facebook.stetho.Stetho
 import com.ldl.wanandroid.BuildConfig
-import com.ldl.wanandroid.R
 import com.ldl.wanandroid.core.dao.DaoMaster
 import com.ldl.wanandroid.core.dao.DaoSession
 import com.ldl.wanandroid.di.component.AppComponent
 import com.ldl.wanandroid.di.component.DaggerAppComponent
 import com.ldl.wanandroid.di.module.AppModule
 import com.ldl.wanandroid.di.module.HttpModule
-import com.ldl.wanandroid.ui.main.activity.MainActivity
-import com.ldl.wanandroid.ui.main.activity.SplashActivity
 import com.ldl.wanandroid.ui.main.adapter.GlobalAdapter
-import com.scwang.smartrefresh.header.DeliveryHeader
-import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.scwang.smartrefresh.layout.api.RefreshLayout
-import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.tencent.bugly.crashreport.CrashReport
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -39,27 +28,12 @@ class WanAndroidApp : Application(), HasAndroidInjector {
     @set:Inject
     var mAndroidInjector: DispatchingAndroidInjector<Any>? = null
 
-    @Volatile
     private var appComponent: AppComponent? = null
 
     private var mDaoSession: DaoSession? = null
 
     companion object {
         var getInstance: WanAndroidApp? = null
-    }
-
-    //static 代码段可以防止内存泄露, 全局设置刷新头部及尾部，优先级最低
-    init {
-        SmartRefreshLayout.setDefaultRefreshHeaderCreator { context: Context?, layout: RefreshLayout ->
-            //全局设置主题颜色
-            layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white)
-            DeliveryHeader(context)
-        }
-        SmartRefreshLayout.setDefaultRefreshFooterCreator { context: Context?, _: RefreshLayout? ->
-            BallPulseFooter(
-                context
-            ).setAnimatingColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
-        }
     }
 
     override fun onCreate() {
@@ -80,10 +54,6 @@ class WanAndroidApp : Application(), HasAndroidInjector {
         initAppComponent()
 
         Gloading.initDefault(GlobalAdapter())
-
-        SmartSwipeBack.activitySlidingBack(
-            this
-        ) { activity -> !((activity is MainActivity) or (activity is SplashActivity)) }
     }
 
     override fun onTrimMemory(level: Int) {
@@ -99,16 +69,6 @@ class WanAndroidApp : Application(), HasAndroidInjector {
         Glide.get(this).clearMemory()
     }
 
-    @Synchronized
-    fun getAppComponent(): AppComponent? {
-        if (appComponent == null) {
-            appComponent = DaggerAppComponent.builder()
-                .appModule(AppModule(this))
-                .httpModule(HttpModule())
-                .build()
-        }
-        return appComponent
-    }
 
     override fun androidInjector(): AndroidInjector<Any> = mAndroidInjector!!
 

@@ -53,8 +53,6 @@ dependencies {
     implementation rootProject.ext.dependencies["material"]
 
     //ui
-    implementation rootProject.ext.dependencies["SmartRefreshLayout"]
-    implementation rootProject.ext.dependencies["SmartRefreshHeader"]
     implementation rootProject.ext.dependencies["gloading"]
     implementation rootProject.ext.dependencies["flowlayout"]
     implementation rootProject.ext.dependencies["Banner"]
@@ -108,8 +106,6 @@ dependencies {
     implementation rootProject.ext.dependencies["PersistentCookieJar"]
     implementation rootProject.ext.dependencies["lottie"]
     implementation rootProject.ext.dependencies["bugly"]
-    implementation rootProject.ext.dependencies["smart-swipe"]
-    implementation rootProject.ext.dependencies["smart-swipe-x"]
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

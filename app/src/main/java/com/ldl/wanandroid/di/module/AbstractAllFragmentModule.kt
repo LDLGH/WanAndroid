@@ -1,12 +1,14 @@
 package com.ldl.wanandroid.di.module
 
 import com.ldl.wanandroid.di.component.BaseFragmentComponent
+import com.ldl.wanandroid.ui.knowledge.fragment.KnowledgeDetailPagerFragment
 import com.ldl.wanandroid.ui.knowledge.fragment.KnowledgeFragment
 import com.ldl.wanandroid.ui.main.activity.MainActivity
 import com.ldl.wanandroid.ui.main.fragment.HomepageFragment
 import com.ldl.wanandroid.ui.navigation.fragment.NavigationFragment
 import com.ldl.wanandroid.ui.project.fragment.ProjectFragment
 import com.ldl.wanandroid.ui.wx.fragment.WXFragment
+import com.ldl.wanandroid.ui.wx.fragment.WXListPagerFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -31,4 +33,10 @@ abstract class AbstractAllFragmentModule {
 
     @ContributesAndroidInjector(modules = [ProjectFragmentModule::class])
     abstract fun contributesProjectFragmentInjector(): ProjectFragment
+
+    @ContributesAndroidInjector(modules = [KnowledgeDetailPagerFragmentModule::class])
+    abstract fun contributesKnowledgeDetailPagerFragmentInjector(): KnowledgeDetailPagerFragment
+
+    @ContributesAndroidInjector(modules = [WXListPagerFragmentModule::class])
+    abstract fun contributesWXListPagerFragmentInjector(): WXListPagerFragment
 }

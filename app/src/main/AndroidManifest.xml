@@ -54,6 +54,10 @@
         <activity android:name=".ui.main.activity.WebViewActivity" />
         <activity android:name=".ui.main.activity.ArticleActivity" />
         <activity android:name=".ui.navigation.activity.NavigationActivity" />
+        <activity android:name=".ui.knowledge.activity.KnowledgeActivity" />
+        <activity android:name=".ui.knowledge.activity.KnowledgeDetailListActivity" />
+        <activity android:name=".ui.wx.activity.WXListActivity" />
+        <activity android:name=".ui.project.activity.ProjectActivity" />
     </application>
 
 </manifest>

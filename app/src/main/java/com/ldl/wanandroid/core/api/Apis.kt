@@ -1,6 +1,7 @@
 package com.ldl.wanandroid.core.api
 
 import com.ldl.wanandroid.core.bean.BaseResponse
+import com.ldl.wanandroid.core.bean.knowledge.KnowledgeHierarchyData
 import com.ldl.wanandroid.core.bean.main.banner.BannerData
 import com.ldl.wanandroid.core.bean.main.collect.FeedArticleListData
 import com.ldl.wanandroid.core.bean.main.login.LoginData
@@ -8,7 +9,7 @@ import com.ldl.wanandroid.core.bean.main.search.TopSearchData
 import com.ldl.wanandroid.core.bean.main.search.UsefulSiteData
 import com.ldl.wanandroid.core.bean.navigation.NavigationListData
 import com.ldl.wanandroid.core.bean.project.ProjectClassifyData
-import com.ldl.wanandroid.core.bean.project.ProjectListData
+import com.ldl.wanandroid.core.bean.wx.WxAuthor
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -89,7 +90,7 @@ interface Apis {
      * @return 项目类别数据
      */
     @GET("project/list/{page}/json")
-    fun getProjectListData(@Path("page") page: Int, @Query("cid") cid: Int): Observable<BaseResponse<ProjectListData>>
+    fun getProjectListData(@Path("page") page: Int, @Query("cid") cid: Int): Observable<BaseResponse<FeedArticleListData>>
 
     /**
      * 导航
@@ -99,6 +100,50 @@ interface Apis {
      */
     @GET("navi/json")
     fun getNavigationListData(): Observable<BaseResponse<ArrayList<NavigationListData>>>
+
+    /**
+     * 知识体系
+     * http://www.wanandroid.com/tree/json
+     *
+     * @return 知识体系数据
+     */
+    @GET("tree/json")
+    fun getKnowledgeHierarchyData(): Observable<BaseResponse<List<KnowledgeHierarchyData>>>
+
+    /**
+     * 知识体系下的文章
+     * http://www.wanandroid.com/article/list/0?cid=60
+     *
+     * @param page page num
+     * @param cid second page id
+     * @return 知识体系feed文章数据
+     */
+    @GET("article/list/{page}/json")
+    fun getKnowledgeHierarchyDetailData(
+        @Path("page") page: Int, @Query(
+            "cid"
+        ) cid: Int
+    ): Observable<BaseResponse<FeedArticleListData>>
+
+    /**
+     * 获取公众号列表
+     * http://wanandroid.com/wxarticle/chapters/json
+     *
+     * @return 公众号列表数据
+     */
+    @GET("wxarticle/chapters/json")
+    fun getWxAuthorListData(): Observable<BaseResponse<List<WxAuthor>>>
+
+    /**
+     * 获取当前公众号某页的数据
+     * http://wanandroid.com/wxarticle/list/405/1/json
+     *
+     * @param id
+     * @param page
+     * @return 获取当前公众号某页的数据
+     */
+    @GET("wxarticle/list/{id}/{page}/json")
+    fun getWxSumData(@Path("id") id: Int, @Path("page") page: Int): Observable<BaseResponse<FeedArticleListData>>
 
     /**
      * 登陆

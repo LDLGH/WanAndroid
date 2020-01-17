@@ -27,7 +27,7 @@
 
     <string name="menu_main">首页</string>
     <string name="menu_article">文章</string>
-    <string name="menu_knowledge">知识</string>
+    <string name="menu_knowledge">知识体系</string>
     <string name="menu_wx">公众号</string>
     <string name="menu_navigation">导航</string>
     <string name="menu_project">项目</string>
@@ -37,6 +37,7 @@
 
     //homepage
     <string name="search">搜索</string>
+    <string name="back">返回</string>
     <string name="see_more">查看更多</string>
     <string name="recommended_article">推荐文章</string>
     <string name="carefully_selected_for_you">为你精挑细选</string>

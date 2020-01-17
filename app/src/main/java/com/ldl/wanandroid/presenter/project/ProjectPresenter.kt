@@ -3,6 +3,9 @@ package com.ldl.wanandroid.presenter.project
 import com.ldl.wanandroid.base.presenter.BasePresenter
 import com.ldl.wanandroid.contract.project.ProjectContract
 import com.ldl.wanandroid.core.DataManager
+import com.ldl.wanandroid.core.bean.project.ProjectClassifyData
+import com.ldl.wanandroid.core.http.rx.BaseObserver
+import com.ldl.wanandroid.utils.RxUtils
 import javax.inject.Inject
 
 /**
@@ -11,4 +14,18 @@ import javax.inject.Inject
  */
 class ProjectPresenter @Inject constructor(var dataManager: DataManager) :
     BasePresenter<ProjectContract.View>(dataManager), ProjectContract.Presenter {
+
+    override fun getProjectClassifyData() {
+        addSubscribe(
+            dataManager.getProjectClassifyData()
+                .compose(RxUtils.rxSchedulerHelper())
+                .compose(RxUtils.handleResult())
+                .subscribeWith(object : BaseObserver<List<ProjectClassifyData>>(mView!!) {
+                    override fun onNext(t: List<ProjectClassifyData>) {
+                        mView?.showProjectClassify(t)
+                    }
+                })
+        )
+    }
+
 }

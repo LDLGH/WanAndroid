@@ -1,8 +1,11 @@
 package com.ldl.wanandroid.di.module
 
 import com.ldl.wanandroid.di.component.BaseActivityComponent
+import com.ldl.wanandroid.ui.knowledge.activity.KnowledgeActivity
+import com.ldl.wanandroid.ui.knowledge.activity.KnowledgeDetailListActivity
 import com.ldl.wanandroid.ui.main.activity.*
 import com.ldl.wanandroid.ui.navigation.activity.NavigationActivity
+import com.ldl.wanandroid.ui.wx.activity.WXListActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -33,4 +36,13 @@ abstract class AbstractAllActivityModule {
 
     @ContributesAndroidInjector(modules = [NavigationActivityModule::class])
     abstract fun contributesNavigationActivityInjector(): NavigationActivity
+
+    @ContributesAndroidInjector(modules = [KnowledgeActivityModule::class])
+    abstract fun contributesKnowledgeActivityInjector(): KnowledgeActivity
+
+    @ContributesAndroidInjector(modules = [KnowledgeDetailActivityModule::class])
+    abstract fun contributesKnowledgeDetailActivityInjector(): KnowledgeDetailListActivity
+
+    @ContributesAndroidInjector(modules = [WXListActivityModule::class])
+    abstract fun contributesWXListActivityInjector(): WXListActivity
 }

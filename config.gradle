@@ -83,8 +83,6 @@ ext {
             "PersistentCookieJar"          : "com.github.franmontiel:PersistentCookieJar:v1.0.1",
             "lottie"                       : "com.airbnb.android:lottie:3.3.1",
             "bugly"                        : "com.tencent.bugly:crashreport:3.1.0",
-            "smart-swipe"                  : "com.billy.android:smart-swipe:1.1.2",
-            "smart-swipe-x"                : "com.billy.android:smart-swipe-x:1.1.0",
 
     ]
 }

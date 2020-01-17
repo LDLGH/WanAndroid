@@ -1,7 +1,7 @@
 package com.ldl.wanandroid.ui.main.activity
 
 import android.os.Bundle
-import android.view.KeyEvent
+import android.view.Menu
 import android.view.MenuItem
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.blankj.utilcode.util.ActivityUtils
@@ -74,9 +74,19 @@ class WebViewActivity : BaseActivity<WebViewPresenter>(), WebViewContract.View {
         }
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_webview, menu)
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+            R.id.action_clear -> {
                 ActivityUtils.finishActivity(this, true)
                 return true
             }
@@ -84,11 +94,10 @@ class WebViewActivity : BaseActivity<WebViewPresenter>(), WebViewContract.View {
         }
     }
 
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (mAgentWeb!!.handleKeyEvent(keyCode, event)) {
-            return true
+    override fun onBackPressed() {
+        if(!mAgentWeb!!.back()){
+            super.onBackPressed()
         }
-        return super.onKeyDown(keyCode, event)
     }
 
     override fun onPause() {

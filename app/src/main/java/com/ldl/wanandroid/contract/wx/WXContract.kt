@@ -2,6 +2,7 @@ package com.ldl.wanandroid.contract.wx
 
 import com.ldl.wanandroid.base.presenter.AbstractPresenter
 import com.ldl.wanandroid.base.view.AbstractView
+import com.ldl.wanandroid.core.bean.wx.WxAuthor
 
 /**
  * 作者：LDL 创建时间：2019/12/31
@@ -9,7 +10,11 @@ import com.ldl.wanandroid.base.view.AbstractView
  */
 interface WXContract {
 
-    interface View : AbstractView
+    interface View : AbstractView {
+        fun showWxAuthorList(wxAuthorList: List<WxAuthor>)
+    }
 
-    interface Presenter : AbstractPresenter
+    interface Presenter : AbstractPresenter {
+        fun getWxAuthorListData()
+    }
 }

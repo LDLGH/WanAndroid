@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.GsonUtils
-import com.blankj.utilcode.util.LogUtils
 import com.ldl.wanandroid.R
 import com.ldl.wanandroid.R.layout.fragment_homepage
 import com.ldl.wanandroid.base.fragment.BaseRootFragment
@@ -20,11 +19,13 @@ import com.ldl.wanandroid.core.bean.main.collect.FeedArticleListData
 import com.ldl.wanandroid.core.bean.main.search.TopSearchData
 import com.ldl.wanandroid.core.bean.main.search.UsefulSiteData
 import com.ldl.wanandroid.presenter.main.HomepagePresenter
+import com.ldl.wanandroid.ui.knowledge.activity.KnowledgeActivity
 import com.ldl.wanandroid.ui.main.activity.ArticleActivity
 import com.ldl.wanandroid.ui.main.adapter.BannerViewHolder
 import com.ldl.wanandroid.ui.main.adapter.HomepageAdapter
 import com.ldl.wanandroid.ui.main.adapter.MenuAdapter
 import com.ldl.wanandroid.ui.navigation.activity.NavigationActivity
+import com.ldl.wanandroid.ui.wx.activity.WXListActivity
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.PageStyle.MULTI_PAGE_SCALE
 import kotlinx.android.synthetic.main.fragment_homepage.*
@@ -70,6 +71,12 @@ class HomepageFragment : BaseRootFragment<HomepagePresenter>(), HomepageContract
                 }
                 1 -> {
                     ActivityUtils.startActivity(NavigationActivity::class.java)
+                }
+                2 -> {
+                    ActivityUtils.startActivity(KnowledgeActivity::class.java)
+                }
+                3 -> {
+                    ActivityUtils.startActivity(WXListActivity::class.java)
                 }
                 else -> {
                 }

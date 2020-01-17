@@ -3,6 +3,7 @@ package com.ldl.wanandroid.ui.knowledge.fragment
 import com.ldl.wanandroid.R.layout.fragment_knowledge
 import com.ldl.wanandroid.base.fragment.LazyLoadFragment
 import com.ldl.wanandroid.contract.knowledge.KnowledgeContract
+import com.ldl.wanandroid.core.bean.knowledge.KnowledgeHierarchyData
 import com.ldl.wanandroid.presenter.knowledge.KnowledgePresenter
 
 /**
@@ -18,5 +19,9 @@ class KnowledgeFragment : LazyLoadFragment<KnowledgePresenter>(), KnowledgeContr
     override fun getLayoutId(): Int = fragment_knowledge
 
     override fun initEventAndData() {
+    }
+
+    override fun showKnowledgeHierarchy(knowledgeHierarchyDataList: List<KnowledgeHierarchyData>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

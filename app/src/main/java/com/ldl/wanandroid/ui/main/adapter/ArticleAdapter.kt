@@ -25,8 +25,8 @@ class ArticleAdapter(list: ArrayList<FeedArticleData>) :
             }
             helper.setText(R.id.tv_shareUser, shareUser)
             helper.setText(R.id.tv_chapter, "${superChapterName}/${chapterName}")
-            val toDBC = StringUtils.toDBC(title)
-            helper.setText(R.id.tv_title, toDBC)
+//            val toDBC = StringUtils.toDBC(title)
+            helper.setText(R.id.tv_title, title)
             helper.setText(R.id.tv_time, niceDate)
 
             val tvZan = helper.getView<TextView>(R.id.tv_zan)
