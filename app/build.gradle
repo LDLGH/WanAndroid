@@ -106,6 +106,7 @@ dependencies {
     implementation rootProject.ext.dependencies["PersistentCookieJar"]
     implementation rootProject.ext.dependencies["lottie"]
     implementation rootProject.ext.dependencies["bugly"]
+    implementation rootProject.ext.dependencies["LaunchStarter"]
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

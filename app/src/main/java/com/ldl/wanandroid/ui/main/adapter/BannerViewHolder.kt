@@ -2,6 +2,7 @@ package com.ldl.wanandroid.ui.main.adapter
 
 import android.view.View
 import android.widget.ImageView
+import com.blankj.utilcode.util.ConvertUtils
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.ldl.wanandroid.R
 import com.ldl.wanandroid.R.layout.layout_banner
@@ -22,7 +23,7 @@ class BannerViewHolder : ViewHolder<BannerData> {
             .load(data?.imagePath)
             .transform(
                 CenterCrop(), RoundedCornersTransformation(
-                    30, 0,
+                    ConvertUtils.dp2px(10f), 0,
                     RoundedCornersTransformation.CornerType.ALL
                 )
             )

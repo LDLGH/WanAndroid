@@ -10,6 +10,7 @@ import com.ldl.wanandroid.base.activity.BaseRootActivity
 import com.ldl.wanandroid.contract.project.ProjectContract
 import com.ldl.wanandroid.core.bean.project.ProjectClassifyData
 import com.ldl.wanandroid.presenter.project.ProjectPresenter
+import com.ldl.wanandroid.ui.project.adapter.ProjectListPagerAdapter
 import kotlinx.android.synthetic.main.activity_project.*
 import kotlinx.android.synthetic.main.common_toolbar.*
 
@@ -66,6 +67,7 @@ class ProjectActivity : BaseRootActivity<ProjectPresenter>(), ProjectContract.Vi
     private fun initViewPager(list: List<ProjectClassifyData>) {
         vp_project.currentItem = 0
         vp_project.offscreenPageLimit = list.size
+        vp_project.adapter = ProjectListPagerAdapter(this, list)
         vp_project.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)

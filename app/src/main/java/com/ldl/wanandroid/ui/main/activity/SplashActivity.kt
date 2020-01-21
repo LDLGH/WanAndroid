@@ -1,8 +1,6 @@
 package com.ldl.wanandroid.ui.main.activity
 
 import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.BarUtils
-import com.blankj.utilcode.util.ScreenUtils
 import com.ldl.wanandroid.R
 import com.ldl.wanandroid.R.layout.activity_splash
 import com.ldl.wanandroid.base.activity.BaseActivity
@@ -19,12 +17,21 @@ class SplashActivity : BaseActivity<SplashPresenter>(), SplashContract.View {
     override fun getLayoutId(): Int = activity_splash
 
     override fun initToolbar() {
-        BarUtils.transparentStatusBar(this)
+
+    }
+
+    override fun onViewCreated() {
+        super.onViewCreated()
+        view_lottie.setAnimation(R.raw.sheep_play_computer)
+        view_lottie.playAnimation()
+        tv_skip.start()
+        tv_skip.setOnClickListener {
+            jumpToMain()
+        }
     }
 
     override fun initEventAndData() {
-        view_lottie.setAnimation(R.raw.sheep_play_computer)
-        view_lottie.playAnimation()
+
     }
 
     override fun jumpToMain() {

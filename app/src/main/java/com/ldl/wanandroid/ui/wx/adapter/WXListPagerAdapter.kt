@@ -14,15 +14,15 @@ class WXListPagerAdapter(
     fragmentActivity: FragmentActivity
 ) : FragmentStateAdapter(fragmentActivity) {
 
-    private val mList: ArrayList<WxAuthor> by lazy {
-        ArrayList<WxAuthor>()
-    }
-
     constructor(
         fragmentActivity: FragmentActivity,
         list: List<WxAuthor>
     ) : this(fragmentActivity) {
         mList.addAll(list)
+    }
+
+    private val mList: ArrayList<WxAuthor> by lazy {
+        ArrayList<WxAuthor>()
     }
 
     override fun getItemCount(): Int = mList.size

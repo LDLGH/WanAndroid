@@ -88,7 +88,9 @@ class ArticleActivity : BaseRootActivity<ArticlePresenter>(), ArticleContract.Vi
             feedArticleDataList.clear()
             mAdapter.setNewData(feedArticleListData.datas)
         } else {
-            if (ObjectUtils.isNotEmpty(feedArticleListData.datas)) {
+            if (ObjectUtils.isNotEmpty(feedArticleListData.datas)
+                && feedArticleListData.total > feedArticleListData.curPage
+            ) {
                 mAdapter.addData(feedArticleListData.datas)
                 mAdapter.loadMoreModule?.loadMoreComplete()
             } else

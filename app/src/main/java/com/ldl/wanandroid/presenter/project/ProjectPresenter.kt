@@ -20,6 +20,12 @@ class ProjectPresenter @Inject constructor(var dataManager: DataManager) :
             dataManager.getProjectClassifyData()
                 .compose(RxUtils.rxSchedulerHelper())
                 .compose(RxUtils.handleResult())
+                .doOnSubscribe {
+                    mView?.showLoading()
+                }
+                .doFinally {
+                    mView?.showNormal()
+                }
                 .subscribeWith(object : BaseObserver<List<ProjectClassifyData>>(mView!!) {
                     override fun onNext(t: List<ProjectClassifyData>) {
                         mView?.showProjectClassify(t)

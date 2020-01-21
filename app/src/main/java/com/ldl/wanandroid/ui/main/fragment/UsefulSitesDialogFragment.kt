@@ -1,20 +1,15 @@
 package com.ldl.wanandroid.ui.main.fragment
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
-import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.view.setPadding
 import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.GsonUtils
-import com.blankj.utilcode.util.ToastUtils
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ldl.wanandroid.R
 import com.ldl.wanandroid.base.fragment.BaseBottomDialogFragment
 import com.ldl.wanandroid.core.bean.main.search.UsefulSiteData
+import com.ldl.wanandroid.ui.main.activity.WebViewActivity
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
 import kotlinx.android.synthetic.main.dialog_useful_sites.*
@@ -57,19 +52,22 @@ class UsefulSitesDialogFragment : BaseBottomDialogFragment() {
             override fun getView(parent: FlowLayout?, position: Int, t: UsefulSiteData?): View {
                 val tv = TextView(mActivity)
                 tv.text = t?.name
-                tv.setTextColor(ColorUtils.getColor(R.color.colorWhite))
+                tv.setTextColor(ColorUtils.getColor(R.color.colorTextBlack))
                 tv.textSize = 12f
-                tv.setPadding(ConvertUtils.dp2px(4f))
-                tv.setBackgroundColor(
-                    if (position % 2 == 0) ColorUtils.getColor(R.color.colorPrimary)
-                    else ColorUtils.getColor(R.color.colorAccent)
+                tv.setPadding(
+                    ConvertUtils.dp2px(10f),
+                    ConvertUtils.dp2px(4f),
+                    ConvertUtils.dp2px(10f),
+                    ConvertUtils.dp2px(4f)
                 )
+                tv.setBackgroundResource(R.drawable.selector_search_fl_bg)
                 return tv
             }
         }
         fl_useful_sites.adapter = tagAdapter
-        fl_useful_sites.setOnTagClickListener { view, position, parent ->
-            ToastUtils.showShort(list[position].name)
+        fl_useful_sites.setOnTagClickListener { _, position, _ ->
+            val usefulSiteData = list[position]
+            WebViewActivity.start(usefulSiteData.name, usefulSiteData.link)
             return@setOnTagClickListener true
         }
     }

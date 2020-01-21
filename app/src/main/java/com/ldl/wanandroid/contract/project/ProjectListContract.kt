@@ -12,11 +12,19 @@ interface ProjectListContract {
 
     interface View : AbstractView {
 
-        fun showProjectList(feedArticleListData: FeedArticleListData)
+        fun showProjectList(
+            feedArticleListData: FeedArticleListData,
+            isRefresh: Boolean
+        )
 
     }
 
     interface Presenter : AbstractPresenter {
+
+        fun refresh(cid: Int)
+
+        fun loadMore(cid: Int)
+
         fun getProjectListData(
             page: Int,
             cid: Int

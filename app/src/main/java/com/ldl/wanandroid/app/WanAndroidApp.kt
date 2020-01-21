@@ -2,10 +2,10 @@ package com.ldl.wanandroid.app
 
 import android.app.Application
 import com.billy.android.loading.Gloading
-import com.blankj.utilcode.util.Utils
 import com.bumptech.glide.Glide
-import com.facebook.stetho.Stetho
-import com.ldl.wanandroid.BuildConfig
+import com.ldl.wanandroid.app.task.InitBuglyTask
+import com.ldl.wanandroid.app.task.InitStethoTask
+import com.ldl.wanandroid.app.task.InitUtilsTask
 import com.ldl.wanandroid.core.dao.DaoMaster
 import com.ldl.wanandroid.core.dao.DaoSession
 import com.ldl.wanandroid.di.component.AppComponent
@@ -13,10 +13,10 @@ import com.ldl.wanandroid.di.component.DaggerAppComponent
 import com.ldl.wanandroid.di.module.AppModule
 import com.ldl.wanandroid.di.module.HttpModule
 import com.ldl.wanandroid.ui.main.adapter.GlobalAdapter
-import com.tencent.bugly.crashreport.CrashReport
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import org.jay.launchstarter.TaskDispatcher
 import javax.inject.Inject
 
 /**
@@ -36,26 +36,6 @@ class WanAndroidApp : Application(), HasAndroidInjector {
         var getInstance: WanAndroidApp? = null
     }
 
-    override fun onCreate() {
-        super.onCreate()
-
-        getInstance = this
-
-        CrashReport.initCrashReport(this, Constants.BUGLY_ID, BuildConfig.DEBUG)
-
-        Utils.init(this)
-
-        if (BuildConfig.DEBUG) {
-            Stetho.initializeWithDefaults(this)
-        }
-
-        initGreenDao()
-
-        initAppComponent()
-
-        Gloading.initDefault(GlobalAdapter())
-    }
-
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
         if (level == TRIM_MEMORY_UI_HIDDEN) {
@@ -69,8 +49,24 @@ class WanAndroidApp : Application(), HasAndroidInjector {
         Glide.get(this).clearMemory()
     }
 
+    override fun onCreate() {
+        super.onCreate()
 
-    override fun androidInjector(): AndroidInjector<Any> = mAndroidInjector!!
+        getInstance = this
+
+        //异步初始化工具
+        TaskDispatcher.init(this)
+        val taskDispatcher = TaskDispatcher.createInstance()
+        taskDispatcher.addTask(InitBuglyTask())
+            .addTask(InitStethoTask())
+            .addTask(InitUtilsTask())
+            .start()
+        taskDispatcher.await()
+
+        initGreenDao()
+        initAppComponent()
+        initGloading()
+    }
 
     private fun initAppComponent() {
         appComponent = DaggerAppComponent.builder()
@@ -87,5 +83,12 @@ class WanAndroidApp : Application(), HasAndroidInjector {
         mDaoSession = daoMaster.newSession()
     }
 
+    private fun initGloading() {
+        Gloading.initDefault(GlobalAdapter())
+    }
+
     fun getDaoSession(): DaoSession = mDaoSession!!
+
+
+    override fun androidInjector(): AndroidInjector<Any> = mAndroidInjector!!
 }

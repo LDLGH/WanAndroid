@@ -14,5 +14,6 @@ class MenuAdapter(data: ArrayList<MenuData>) :
 
     override fun convert(helper: BaseViewHolder, item: MenuData?) {
         helper.setText(R.id.tv_menu, item?.name)
+        helper.setImageResource(R.id.iv_menu, item!!.url)
     }
 }

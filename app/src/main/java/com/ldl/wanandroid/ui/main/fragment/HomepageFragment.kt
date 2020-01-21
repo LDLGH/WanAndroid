@@ -21,12 +21,15 @@ import com.ldl.wanandroid.core.bean.main.search.UsefulSiteData
 import com.ldl.wanandroid.presenter.main.HomepagePresenter
 import com.ldl.wanandroid.ui.knowledge.activity.KnowledgeActivity
 import com.ldl.wanandroid.ui.main.activity.ArticleActivity
+import com.ldl.wanandroid.ui.main.activity.WebViewActivity
 import com.ldl.wanandroid.ui.main.adapter.BannerViewHolder
 import com.ldl.wanandroid.ui.main.adapter.HomepageAdapter
 import com.ldl.wanandroid.ui.main.adapter.MenuAdapter
 import com.ldl.wanandroid.ui.navigation.activity.NavigationActivity
+import com.ldl.wanandroid.ui.project.activity.ProjectActivity
 import com.ldl.wanandroid.ui.wx.activity.WXListActivity
 import com.zhpan.bannerview.BannerViewPager
+import com.zhpan.bannerview.constants.IndicatorSlideMode
 import com.zhpan.bannerview.constants.PageStyle.MULTI_PAGE_SCALE
 import kotlinx.android.synthetic.main.fragment_homepage.*
 
@@ -42,6 +45,16 @@ class HomepageFragment : BaseRootFragment<HomepagePresenter>(), HomepageContract
     private lateinit var mAdapter: HomepageAdapter
 
     private val mHomepageMultiData: ArrayList<HomepageMultiData> by lazy { ArrayList<HomepageMultiData>() }
+
+    override fun onResume() {
+        super.onResume()
+        mBanner?.startLoop()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mBanner?.stopLoop()
+    }
 
     override fun getLayoutId(): Int = fragment_homepage
 
@@ -65,22 +78,7 @@ class HomepageFragment : BaseRootFragment<HomepagePresenter>(), HomepageContract
         val menuAdapter = MenuAdapter(mPresenter!!.getMenuList())
         rvMenu.adapter = menuAdapter
         menuAdapter.setOnItemClickListener { _, _, position ->
-            when (position) {
-                0 -> {
-                    ActivityUtils.startActivity(ArticleActivity::class.java)
-                }
-                1 -> {
-                    ActivityUtils.startActivity(NavigationActivity::class.java)
-                }
-                2 -> {
-                    ActivityUtils.startActivity(KnowledgeActivity::class.java)
-                }
-                3 -> {
-                    ActivityUtils.startActivity(WXListActivity::class.java)
-                }
-                else -> {
-                }
-            }
+            jumpToActivity(position)
         }
     }
 
@@ -93,12 +91,14 @@ class HomepageFragment : BaseRootFragment<HomepagePresenter>(), HomepageContract
     }
 
     private fun initBanner(bannerDataList: List<BannerData>) {
-        mBanner?.also {
-            it.setPageStyle(MULTI_PAGE_SCALE)
+        mBanner?.apply {
+            setPageStyle(MULTI_PAGE_SCALE)
                 .setPageMargin(ConvertUtils.dp2px(20f))
+                .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .setHolderCreator { BannerViewHolder() }
-                .setOnPageClickListener { it1 ->
-                    showSnackBar(bannerDataList[it1].title)
+                .setOnPageClickListener {
+                    val bannerData = bannerDataList[it]
+                    WebViewActivity.start(bannerData.title, bannerData.url)
                 }
                 .create(bannerDataList)
         }
@@ -108,6 +108,37 @@ class HomepageFragment : BaseRootFragment<HomepagePresenter>(), HomepageContract
         swipeRefreshLayout.setOnRefreshListener {
             mPresenter?.refresh()
         }
+    }
+
+    private fun jumpToActivity(position: Int) {
+        when (position) {
+            0 -> {
+                ActivityUtils.startActivity(ArticleActivity::class.java)
+            }
+            1 -> {
+                ActivityUtils.startActivity(NavigationActivity::class.java)
+            }
+            2 -> {
+                ActivityUtils.startActivity(KnowledgeActivity::class.java)
+            }
+            3 -> {
+                ActivityUtils.startActivity(WXListActivity::class.java)
+            }
+            4 -> {
+                ActivityUtils.startActivity(ProjectActivity::class.java)
+            }
+            else -> {
+            }
+        }
+    }
+
+    override fun onLoginEvent() {
+        mAdapter.remove(3)
+    }
+
+    override fun reload() {
+        super.reload()
+        mPresenter?.getAllData(true)
     }
 
     override fun showArticleList(feedArticleListData: FeedArticleListData, isRefresh: Boolean) {
@@ -162,22 +193,4 @@ class HomepageFragment : BaseRootFragment<HomepagePresenter>(), HomepageContract
         mAdapter.setNewData(mHomepageMultiData)
     }
 
-    override fun onLoginEvent() {
-        mAdapter.remove(3)
-    }
-
-    override fun reload() {
-        super.reload()
-        mPresenter?.getAllData(true)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        mBanner?.startLoop()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mBanner?.stopLoop()
-    }
 }

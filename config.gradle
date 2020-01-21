@@ -83,6 +83,7 @@ ext {
             "PersistentCookieJar"          : "com.github.franmontiel:PersistentCookieJar:v1.0.1",
             "lottie"                       : "com.airbnb.android:lottie:3.3.1",
             "bugly"                        : "com.tencent.bugly:crashreport:3.1.0",
+            "LaunchStarter"                        : "com.github.zeshaoaaa:LaunchStarter:0.0.1",
 
     ]
 }

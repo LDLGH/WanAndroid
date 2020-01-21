@@ -2,11 +2,9 @@ package com.ldl.wanandroid.ui.main.adapter
 
 import android.view.View
 import android.widget.TextView
-import androidx.core.view.setPadding
 import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.GsonUtils
-import com.blankj.utilcode.util.ToastUtils
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.ldl.wanandroid.R
@@ -42,19 +40,21 @@ class HotSearchItemProvider : BaseItemProvider<HomepageMultiData>() {
             override fun getView(parent: FlowLayout?, position: Int, t: TopSearchData?): View {
                 val tv = TextView(flowLayout.context)
                 tv.text = t?.name
-                tv.setTextColor(ColorUtils.getColor(R.color.colorWhite))
+                tv.setTextColor(ColorUtils.getColor(R.color.colorTextBlack))
                 tv.textSize = 12f
-                tv.setPadding(ConvertUtils.dp2px(4f))
-                tv.setBackgroundColor(
-                    if (position % 2 == 0) ColorUtils.getColor(R.color.colorPrimary)
-                    else ColorUtils.getColor(R.color.colorAccent)
+                tv.setPadding(
+                    ConvertUtils.dp2px(10f),
+                    ConvertUtils.dp2px(4f),
+                    ConvertUtils.dp2px(10f),
+                    ConvertUtils.dp2px(4f)
                 )
+                tv.setBackgroundResource(R.drawable.selector_search_fl_bg)
                 return tv
             }
         }
         flowLayout.adapter = tagAdapter
         flowLayout.setOnTagClickListener { _, position, _ ->
-            ToastUtils.showShort(list[position].name)
+            val topSearchData = list[position]
             return@setOnTagClickListener true
         }
     }

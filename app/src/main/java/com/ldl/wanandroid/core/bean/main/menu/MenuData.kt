@@ -1,6 +1,7 @@
 package com.ldl.wanandroid.core.bean.main.menu
 
 import android.os.Parcelable
+import androidx.annotation.DrawableRes
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -8,4 +9,4 @@ import kotlinx.android.parcel.Parcelize
  * 类说明：
  */
 @Parcelize
-data class MenuData(var name: String, var url: String) : Parcelable
+data class MenuData(var name: String, @DrawableRes var url: Int) : Parcelable

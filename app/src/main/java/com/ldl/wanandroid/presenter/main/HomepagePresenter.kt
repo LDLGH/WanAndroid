@@ -44,11 +44,11 @@ class HomepagePresenter @Inject constructor(var dataManager: DataManager) :
 
     override fun getMenuList(): ArrayList<MenuData> {
         val menuList: ArrayList<MenuData> by lazy { ArrayList<MenuData>() }
-        menuList.add(MenuData("文章", ""))
-        menuList.add(MenuData("导航", ""))
-        menuList.add(MenuData("知识体系", ""))
-        menuList.add(MenuData("公众号", ""))
-        menuList.add(MenuData("项目", ""))
+        menuList.add(MenuData("文章", R.mipmap.ic_article))
+        menuList.add(MenuData("导航", R.mipmap.ic_navigation))
+        menuList.add(MenuData("知识体系", R.mipmap.ic_knowledge))
+        menuList.add(MenuData("公众号", R.mipmap.ic_wx))
+        menuList.add(MenuData("项目", R.mipmap.ic_project))
         return menuList
     }
 
