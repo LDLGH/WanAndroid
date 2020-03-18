@@ -23,12 +23,12 @@ class ProjectListAdapter(datas: ArrayList<FeedArticleData>) :
         addChildClickViewIds(R.id.iv_more)
     }
 
-    override fun convert(helper: BaseViewHolder, item: FeedArticleData?) {
-        helper.setText(R.id.tv_title, item?.title)
-        helper.setText(R.id.tv_shareUser, item?.author)
+    override fun convert(helper: BaseViewHolder, item: FeedArticleData) {
+        helper.setText(R.id.tv_title, item.title)
+        helper.setText(R.id.tv_shareUser, item.author)
         val ivCover = helper.getView<ImageView>(R.id.iv_cover)
         GlideApp.with(ivCover.context)
-            .load(item?.envelopePic)
+            .load(item.envelopePic)
             .transform(
                 RoundedCornersTransformation(
                     ConvertUtils.dp2px(5f), 0,

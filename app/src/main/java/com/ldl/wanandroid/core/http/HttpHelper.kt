@@ -27,6 +27,18 @@ interface HttpHelper {
     fun getFeedArticleList(pageNum: Int): Observable<BaseResponse<FeedArticleListData>>
 
     /**
+     * 获取搜索的文章列表
+     *
+     * @param pageNum 页数
+     * @param k 关键字
+     * @return 搜索的文章数据
+     */
+    fun getSearchList(
+        pageNum: Int,
+        k: String?
+    ): Observable<BaseResponse<FeedArticleListData>>
+
+    /**
      * 广告栏
      * http://www.wanandroid.com/banner/json
      *

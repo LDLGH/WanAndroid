@@ -26,14 +26,14 @@ class HotSearchItemProvider : BaseItemProvider<HomepageMultiData>() {
     override val layoutId: Int
         get() = R.layout.item_hot_search
 
-    override fun convert(helper: BaseViewHolder, data: HomepageMultiData?) {
-        helper.setText(R.id.tv_title, data?.title)
-        helper.setText(R.id.tv_desc, data?.desc)
+    override fun convert(helper: BaseViewHolder, data: HomepageMultiData) {
+        helper.setText(R.id.tv_title, data.title)
+        helper.setText(R.id.tv_desc, data.desc)
 
         val flowLayout = helper.getView<TagFlowLayout>(R.id.flowLayout)
 
         val list = GsonUtils.fromJson<List<TopSearchData>>(
-            data?.data,
+            data.data,
             GsonUtils.getListType(TopSearchData::class.java)
         )
         val tagAdapter = object : TagAdapter<TopSearchData>(list) {

@@ -27,7 +27,7 @@ interface HomepageContract {
 
         fun showHotSearch(usefulSiteDataList: List<UsefulSiteData>)
 
-        fun onLoginEvent()
+        fun onLoginEvent(msg: String)
     }
 
     interface Presenter : AbstractPresenter {

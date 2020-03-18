@@ -66,6 +66,7 @@ class SearchActivity : BaseActivity<SearchPresenter>(), SearchContract.View {
                     }
                     mPresenter?.addHistoryData(s)
                     KeyboardUtils.hideSoftInput(this)
+                    startSearchListActivity(key = s)
                     return@subscribe
                 }
                 return@subscribe
@@ -96,7 +97,9 @@ class SearchActivity : BaseActivity<SearchPresenter>(), SearchContract.View {
         rv_search.layoutManager = LinearLayoutManager(this)
         mAdapter = HotSearchListAdapter(mTopSearchDataList)
         rv_search.adapter = mAdapter
-        mAdapter.setOnItemClickListener { adapter, view, position -> }
+        mAdapter.setOnItemClickListener { _, _, position ->
+            startSearchListActivity(mTopSearchDataList[position].name)
+        }
     }
 
     private fun setTagFlowLayout(historyDataList: List<HistoryData>) {
@@ -116,8 +119,8 @@ class SearchActivity : BaseActivity<SearchPresenter>(), SearchContract.View {
                 return tv
             }
         }
-        mFlHistory?.setOnTagClickListener { view, position, parent ->
-
+        mFlHistory?.setOnTagClickListener { _, position, _ ->
+            startSearchListActivity(historyDataList[position].data)
             return@setOnTagClickListener true
         }
     }
@@ -134,8 +137,12 @@ class SearchActivity : BaseActivity<SearchPresenter>(), SearchContract.View {
                 return true
             }
             R.id.action_search -> {
-                mPresenter?.addHistoryData(et_search.text.toString())
-                KeyboardUtils.hideSoftInput(this)
+                val key = et_search.text.toString()
+                if (ObjectUtils.isNotEmpty(key)) {
+                    mPresenter?.addHistoryData(et_search.text.toString())
+                    KeyboardUtils.hideSoftInput(this)
+                    startSearchListActivity(et_search.text.toString())
+                }
                 return true
             }
             else -> super.onOptionsItemSelected(item)
@@ -152,5 +159,9 @@ class SearchActivity : BaseActivity<SearchPresenter>(), SearchContract.View {
             mClHistory?.visibility = View.VISIBLE
             setTagFlowLayout(historyDataList)
         }
+    }
+
+    private fun startSearchListActivity(key: String) {
+        SearchListActivity.start(key)
     }
 }

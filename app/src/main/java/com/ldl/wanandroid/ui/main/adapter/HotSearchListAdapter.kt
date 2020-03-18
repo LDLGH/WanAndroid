@@ -17,9 +17,9 @@ class HotSearchListAdapter(topSearchDataList: ArrayList<TopSearchData>) :
         R.layout.item_hot_search_list, topSearchDataList
     ) {
 
-    override fun convert(helper: BaseViewHolder, item: TopSearchData?) {
+    override fun convert(helper: BaseViewHolder, item: TopSearchData) {
         helper.setText(R.id.tv_ranking, helper.adapterPosition.toString())
-        helper.setText(R.id.tv_name, item?.name)
+        helper.setText(R.id.tv_name, item.name)
         helper.setTextColor(
             R.id.tv_ranking,
             ColorUtils.getColor(

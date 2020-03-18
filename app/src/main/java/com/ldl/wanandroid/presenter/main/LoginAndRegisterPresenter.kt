@@ -38,7 +38,7 @@ class LoginAndRegisterPresenter @Inject constructor(var dataManager: DataManager
                         setLoginAccount(t.username)
                         setLoginPassword(t.password)
                         setLoginStatus(true)
-                        RxBusManager.post(EventMsg(EventMsg.LOGIN, ""))
+                        RxBusManager.post(EventMsg(EventMsg.LOGIN, "login"))
                         mView?.onLogin()
                     }
                 })
@@ -86,7 +86,7 @@ class LoginAndRegisterPresenter @Inject constructor(var dataManager: DataManager
                         setLoginAccount(t.username)
                         setLoginPassword(t.password)
                         setLoginStatus(true)
-                        RxBusManager.post(EventMsg(EventMsg.LOGIN, ""))
+                        RxBusManager.post(EventMsg(EventMsg.LOGIN, "login"))
                         mView?.onLogin()
                     }
                 })

@@ -25,7 +25,7 @@ class LoginItemProvider : BaseItemProvider<HomepageMultiData>() {
     override val layoutId: Int
         get() = R.layout.item_login
 
-    override fun convert(helper: BaseViewHolder, data: HomepageMultiData?) {
+    override fun convert(helper: BaseViewHolder, data: HomepageMultiData) {
 
     }
 

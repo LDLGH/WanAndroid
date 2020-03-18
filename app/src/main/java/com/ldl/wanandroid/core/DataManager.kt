@@ -29,6 +29,11 @@ class DataManager constructor(
     override fun getFeedArticleList(pageNum: Int): Observable<BaseResponse<FeedArticleListData>> =
         httpHelper.getFeedArticleList(pageNum)
 
+    override fun getSearchList(
+        pageNum: Int,
+        k: String?
+    ): Observable<BaseResponse<FeedArticleListData>> = httpHelper.getSearchList(pageNum, k)
+
     override fun getBannerData(): Observable<BaseResponse<List<BannerData>>> =
         httpHelper.getBannerData()
 

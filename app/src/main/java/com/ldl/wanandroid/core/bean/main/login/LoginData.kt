@@ -9,11 +9,12 @@ data class LoginData(
     var chapterTops: List<Int>,
     var email: String,
     var id: Long,
-    var publicName: Long,
+    var publicName: String,
     var token: String,
     var collectIds: List<Int>,
     var username: String,
     var password: String,
     var icon: String,
-    var type: Int
+    var type: Int,
+    var nickname: String
 )

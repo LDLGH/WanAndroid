@@ -132,8 +132,18 @@ class HomepageFragment : BaseRootFragment<HomepagePresenter>(), HomepageContract
         }
     }
 
-    override fun onLoginEvent() {
-        mAdapter.remove(3)
+    override fun onLoginEvent(msg: String) {
+        if (msg == "logout") {
+            val loginData = HomepageMultiData(
+                HomepageMultiData.LOGIN,
+                getString(R.string.login_immediately),
+                getString(R.string.login_collect_articles),
+                ""
+            )
+            mAdapter.addData(3, loginData)
+        } else {
+            mAdapter.remove(3)
+        }
     }
 
     override fun reload() {

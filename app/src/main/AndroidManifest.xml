@@ -59,6 +59,7 @@
         <activity android:name=".ui.knowledge.activity.KnowledgeDetailListActivity" />
         <activity android:name=".ui.wx.activity.WXListActivity" />
         <activity android:name=".ui.project.activity.ProjectActivity" />
+        <activity android:name=".ui.main.activity.SearchListActivity" />
     </application>
 
 </manifest>

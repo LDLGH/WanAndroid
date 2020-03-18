@@ -15,8 +15,8 @@ import com.ldl.wanandroid.core.bean.navigation.NavigationListData
 class NavigationMenuAdapter(list: ArrayList<NavigationListData>) :
     BaseQuickAdapter<NavigationListData, BaseViewHolder>(R.layout.item_navigation_menu, list) {
 
-    override fun convert(helper: BaseViewHolder, item: NavigationListData?) {
-        item?.apply {
+    override fun convert(helper: BaseViewHolder, item: NavigationListData) {
+        item.apply {
             helper.setBackgroundColor(
                 R.id.cl_item,
                 if (select) ColorUtils.getColor(R.color.colorWhite)
