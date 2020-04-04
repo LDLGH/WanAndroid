@@ -10,6 +10,8 @@ apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+
     defaultConfig {
         applicationId "com.ldl.wanandroid"
         minSdkVersion rootProject.ext.android["minSdkVersion"]

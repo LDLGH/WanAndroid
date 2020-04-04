@@ -97,7 +97,7 @@ class LoginAndRegisterActivity : BaseActivity<LoginAndRegisterPresenter>(),
 
     override fun onBackPressed() {
         KeyboardUtils.hideSoftInput(this)
-        if (cl_head.isVisible) {
+        if (cl_head.visibility == View.VISIBLE) {
             cl_head.visibility = View.GONE
             cl_content.visibility = View.VISIBLE
             toolbar.setNavigationIcon(R.drawable.ic_clear_white_24dp)
