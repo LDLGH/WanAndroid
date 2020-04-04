@@ -45,7 +45,7 @@ class NavigationVPAdapter(list: ArrayList<NavigationListData>) :
             }
         }
         flContent.setOnTagClickListener { _, position, _ ->
-            val feedArticleData = item!!.articles[position]
+            val feedArticleData = item.articles[position]
             WebViewActivity.start(feedArticleData.title, feedArticleData.link)
             return@setOnTagClickListener true
         }

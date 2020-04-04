@@ -110,7 +110,7 @@ class LoginAndRegisterActivity : BaseActivity<LoginAndRegisterPresenter>(),
         return if (item?.itemId == android.R.id.home) {
             onBackPressed()
             return true
-        } else super.onOptionsItemSelected(item)
+        } else super.onOptionsItemSelected(item!!)
     }
 
     override fun onLogin() {

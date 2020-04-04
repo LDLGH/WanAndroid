@@ -37,7 +37,7 @@ class SearchListActivity : BaseRootActivity<SearchListPresenter>(), SearchListCo
 
     private lateinit var mAdapter: ArticleAdapter
 
-    private var key: String = ""
+    private var key: String? = null
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

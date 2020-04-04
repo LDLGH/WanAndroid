@@ -33,11 +33,11 @@ class ArticleListAdapter(datas: ArrayList<FeedArticleData>) :
 
     override fun convert(helper: BaseViewHolder, item: FeedArticleData) {
         var author = "Android"
-        if (!ObjectUtils.isEmpty(item?.author)) {
-            author = item!!.author
+        if (!ObjectUtils.isEmpty(item.author)) {
+            author = item.author
         }
         helper.setText(R.id.tv_author, author)
-        helper.setText(R.id.tv_title, item?.title)
+        helper.setText(R.id.tv_title, item.title)
         val ivCover = helper.getView<ImageView>(R.id.iv_cover)
         val random = (0 until images.size).random()
         GlideApp.with(ivCover.context)

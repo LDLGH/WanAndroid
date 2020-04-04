@@ -10,6 +10,8 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.ldl.wanandroid.R
 import com.ldl.wanandroid.core.bean.main.HomepageMultiData
 import com.ldl.wanandroid.core.bean.main.search.TopSearchData
+import com.ldl.wanandroid.ui.main.activity.SearchListActivity
+import com.ldl.wanandroid.ui.main.activity.WebViewActivity
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
 import com.zhy.view.flowlayout.TagFlowLayout
@@ -55,6 +57,7 @@ class HotSearchItemProvider : BaseItemProvider<HomepageMultiData>() {
         flowLayout.adapter = tagAdapter
         flowLayout.setOnTagClickListener { _, position, _ ->
             val topSearchData = list[position]
+            SearchListActivity.start(topSearchData.name)
             return@setOnTagClickListener true
         }
     }

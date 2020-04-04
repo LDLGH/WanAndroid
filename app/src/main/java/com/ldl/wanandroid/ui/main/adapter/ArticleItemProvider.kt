@@ -33,8 +33,8 @@ class ArticleItemProvider : BaseItemProvider<HomepageMultiData>() {
         get() = R.layout.item_main_content
 
     override fun convert(helper: BaseViewHolder, data: HomepageMultiData) {
-        helper.setText(R.id.tv_title, data?.title)
-        helper.setText(R.id.tv_desc, data?.desc)
+        helper.setText(R.id.tv_title, data.title)
+        helper.setText(R.id.tv_desc, data.desc)
 
         val rvContent = helper.getView<RecyclerView>(R.id.rv_content)
         rvContent.layoutManager =
@@ -52,7 +52,7 @@ class ArticleItemProvider : BaseItemProvider<HomepageMultiData>() {
         }
         val articleData =
             GsonUtils.fromJson<ArrayList<FeedArticleData>>(
-                data?.data,
+                data.data,
                 GsonUtils.getListType(FeedArticleData::class.java)
             )
         val articleListAdapter = ArticleListAdapter(articleData)

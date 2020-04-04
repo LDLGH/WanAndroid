@@ -57,8 +57,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"
-        android:paddingLeft="@dimen/margin"
-        android:paddingRight="@dimen/margin"
+        android:paddingLeft="@dimen/margin_tag"
+        android:paddingRight="@dimen/margin_tag"
         app:layout_constraintTop_toBottomOf="@id/cl_head"
         app:max_select="1" />
 

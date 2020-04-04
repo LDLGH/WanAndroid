@@ -16,6 +16,7 @@
 
     <dimen name="menu_bottom">30dp</dimen>
     <dimen name="margin">20dp</dimen>
+    <dimen name="margin_tag">15dp</dimen>
 
     <dimen name="btn_height">50dp</dimen>
 </resources>
