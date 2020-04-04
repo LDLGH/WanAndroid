@@ -10,10 +10,12 @@ import com.ldl.wanandroid.base.view.AbstractView
 interface MainContract {
 
     interface View : AbstractView {
+        fun onLogout()
 
+        fun onLoginEvent(msg: String)
     }
 
     interface Presenter : AbstractPresenter {
-
+        fun logout()
     }
 }

@@ -49,4 +49,7 @@ abstract class AbstractAllActivityModule {
 
     @ContributesAndroidInjector(modules = [ProjectActivityModule::class])
     abstract fun contributesProjectActivityInjector(): ProjectActivity
+
+    @ContributesAndroidInjector(modules = [SearchListActivityModule::class])
+    abstract fun contributesSearchListActivityInjector(): SearchListActivity
 }

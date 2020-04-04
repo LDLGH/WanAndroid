@@ -136,7 +136,7 @@ class HomepagePresenter @Inject constructor(var dataManager: DataManager) :
         RxBusManager.subscribe(this, object : RxBus.Callback<EventMsg>() {
             override fun onEvent(t: EventMsg?) {
                 if (t?.code == EventMsg.LOGIN) {
-                    mView?.onLoginEvent()
+                    mView?.onLoginEvent(t.msg)
                 }
             }
         })

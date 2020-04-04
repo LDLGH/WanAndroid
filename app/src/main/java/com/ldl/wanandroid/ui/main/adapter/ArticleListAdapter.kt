@@ -31,7 +31,7 @@ class ArticleListAdapter(datas: ArrayList<FeedArticleData>) :
         images.add(R.drawable.bg_8)
     }
 
-    override fun convert(helper: BaseViewHolder, item: FeedArticleData?) {
+    override fun convert(helper: BaseViewHolder, item: FeedArticleData) {
         var author = "Android"
         if (!ObjectUtils.isEmpty(item?.author)) {
             author = item!!.author

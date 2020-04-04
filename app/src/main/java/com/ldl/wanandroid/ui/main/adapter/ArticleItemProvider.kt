@@ -32,7 +32,7 @@ class ArticleItemProvider : BaseItemProvider<HomepageMultiData>() {
     override val layoutId: Int
         get() = R.layout.item_main_content
 
-    override fun convert(helper: BaseViewHolder, data: HomepageMultiData?) {
+    override fun convert(helper: BaseViewHolder, data: HomepageMultiData) {
         helper.setText(R.id.tv_title, data?.title)
         helper.setText(R.id.tv_desc, data?.desc)
 

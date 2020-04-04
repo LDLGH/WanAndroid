@@ -12,8 +12,8 @@ import com.ldl.wanandroid.core.bean.main.menu.MenuData
 class MenuAdapter(data: ArrayList<MenuData>) :
     BaseQuickAdapter<MenuData, BaseViewHolder>(R.layout.item_menu, data) {
 
-    override fun convert(helper: BaseViewHolder, item: MenuData?) {
-        helper.setText(R.id.tv_menu, item?.name)
-        helper.setImageResource(R.id.iv_menu, item!!.url)
+    override fun convert(helper: BaseViewHolder, item: MenuData) {
+        helper.setText(R.id.tv_menu, item.name)
+        helper.setImageResource(R.id.iv_menu, item.url)
     }
 }

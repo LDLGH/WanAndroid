@@ -15,6 +15,6 @@ class BottomLineProvider : BaseItemProvider<HomepageMultiData>() {
 
     override val layoutId: Int = R.layout.item_bottom_line
 
-    override fun convert(helper: BaseViewHolder, data: HomepageMultiData?) {
+    override fun convert(helper: BaseViewHolder, data: HomepageMultiData) {
     }
 }

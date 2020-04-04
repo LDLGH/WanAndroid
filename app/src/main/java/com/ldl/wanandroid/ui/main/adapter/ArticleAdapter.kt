@@ -2,7 +2,6 @@ package com.ldl.wanandroid.ui.main.adapter
 
 import android.widget.TextView
 import com.blankj.utilcode.util.ObjectUtils
-import com.blankj.utilcode.util.StringUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
@@ -17,15 +16,15 @@ class ArticleAdapter(list: ArrayList<FeedArticleData>) :
     BaseQuickAdapter<FeedArticleData, BaseViewHolder>(R.layout.item_article, list),
     LoadMoreModule {
 
-    override fun convert(helper: BaseViewHolder, item: FeedArticleData?) {
-        item?.apply {
+    override fun convert(helper: BaseViewHolder, item: FeedArticleData) {
+        item.apply {
             var shareUser = "Android"
             if (!ObjectUtils.isEmpty(author)) {
                 shareUser = author
             }
             helper.setText(R.id.tv_shareUser, shareUser)
             helper.setText(R.id.tv_chapter, "${superChapterName}/${chapterName}")
-//            val toDBC = StringUtils.toDBC(title)
+    //            val toDBC = StringUtils.toDBC(title)
             helper.setText(R.id.tv_title, title)
             helper.setText(R.id.tv_time, niceDate)
 

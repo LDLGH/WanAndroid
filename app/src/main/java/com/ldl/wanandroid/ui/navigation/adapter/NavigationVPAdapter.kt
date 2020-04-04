@@ -23,12 +23,12 @@ class NavigationVPAdapter(list: ArrayList<NavigationListData>) :
         R.layout.item_vp_content, list
     ) {
 
-    override fun convert(helper: BaseViewHolder, item: NavigationListData?) {
+    override fun convert(helper: BaseViewHolder, item: NavigationListData) {
         
-        helper.setText(R.id.tv_title, item?.name)
+        helper.setText(R.id.tv_title, item.name)
 
         val flContent = helper.getView<TagFlowLayout>(R.id.fl_content)
-        flContent.adapter = object : TagAdapter<FeedArticleData>(item?.articles) {
+        flContent.adapter = object : TagAdapter<FeedArticleData>(item.articles) {
             override fun getView(parent: FlowLayout?, position: Int, t: FeedArticleData?): View {
                 val tv = TextView(flContent.context)
                 tv.text = t?.title

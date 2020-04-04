@@ -55,4 +55,8 @@
     <string name="collect">收藏</string>
     <string name="failed_to_obtain_article_list">获取文章列表数据失败</string>
     <string name="skip">跳过</string>
+    <string name="tips">温馨提示</string>
+    <string name="confirm_logout">确认退出登录？</string>
+    <string name="yes">确认</string>
+    <string name="no">取消</string>
 </resources>
